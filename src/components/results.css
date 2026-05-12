@@ -1,0 +1,41 @@
+.results-container {
+  max-width: 700px;
+  margin: auto;
+  padding: 30px;
+  background: #111;
+  border-radius: 12px;
+}
+
+.overall {
+  text-align: center;
+  font-size: 22px;
+  margin-bottom: 30px;
+}
+
+.overall span {
+  display: block;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.region-card {
+  margin-bottom: 20px;
+}
+
+.region-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.bar {
+  height: 16px;
+  background: #1f1f1f;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+  transition: width 0.6s ease;
+}

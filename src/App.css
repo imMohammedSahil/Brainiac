@@ -1,0 +1,83 @@
+.results-container {
+  width: 100%;
+  max-width: 800px;
+  padding: 40px 20px;
+}
+
+/* OVERALL SCORE */
+.overall-score {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.overall-score h2 {
+  font-size: 56px;
+  color: #00ffd5;
+  margin-bottom: 6px;
+}
+
+/* REGION CARD */
+.region-card {
+  background: #161616;
+  padding: 18px;
+  border-radius: 14px;
+  margin-bottom: 20px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+}
+
+/* REGION HEADER */
+.region-header {
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.region-name {
+  letter-spacing: 0.4px;
+}
+
+/* STATUS TEXT */
+.status {
+  font-size: 14px;
+  opacity: 0.85;
+  margin-bottom: 10px;
+}
+
+/* PROGRESS BAR */
+.bar {
+  height: 6px;
+  background: #2a2a2a;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+  background: linear-gradient(90deg, #00ffd5, #7c3aed);
+  border-radius: 6px;
+  transition: width 0.5s ease;
+}
+
+/* SUMMARY SECTION */
+.summary {
+  margin-top: 35px;
+}
+
+.summary p {
+  margin-bottom: 8px;
+}
+
+/* AI INSIGHTS CARD */
+.ai-insights {
+  margin-top: 35px;
+  padding: 20px;
+  background: #161616;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+}
+
+/* DISCLAIMER */
+.disclaimer {
+  margin-top: 18px;
+  opacity: 0.55;
+  font-size: 12px;
+}
