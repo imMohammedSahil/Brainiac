@@ -2996,11 +2996,11 @@ const fullPageStyles = `
       background: #e7e5e4 !important;
     }
 
-    /* Part 1: Loving Steps 2x2 Grid */
+    /* Part 1: Loving Steps 5-Cell Harmonized Matrix */
     .cr-pdoc-modules-matrix {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
+      gap: 7px;
     }
 
     .cr-pdoc-matrix-cell {
@@ -3008,9 +3008,16 @@ const fullPageStyles = `
       border: 1px solid #e7e5e4 !important;
       border-left: 3px solid #292524 !important;
       border-radius: 8px;
-      padding: 9px 11px;
+      padding: 8px 10px;
       page-break-inside: avoid;
       break-inside: avoid;
+    }
+
+    /* When 5 items are present, first item (Core Neural Insight) gracefully spans across both columns */
+    .cr-pdoc-matrix-cell:first-child:nth-last-child(5) {
+      grid-column: 1 / -1;
+      background: #f5f3ef !important;
+      border-left: 3.5px solid #292524 !important;
     }
 
     .cr-pdoc-matrix-header {
