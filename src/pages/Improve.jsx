@@ -105,22 +105,23 @@ Target Focus: ${selectedFocus}
 User's Personal Thoughts & What They Are Experiencing: "${userInput}"
 
 CRITICAL GUIDELINES:
-1. Deep Personalization: Directly address the user's situation and feelings from what they shared ("${userInput}"). Weave their personal context directly into the advice so they feel truly seen, safe, validated, and lovingly cared for.
-2. Tone: Warm, soothing, feel-good, gentle, and comforting. Never cold, clinical, or generic.
-3. Formatting: Do NOT use emojis. Do NOT use markdown bold asterisks.
-4. Structure: Strictly format your response into these exact 4 sections with clean dash bullet points (- ):
+1. Deep Personalization & Brevity: Directly address the user's situation from what they shared ("${userInput}") in a concise, comforting way.
+2. Length Limit: Provide exactly ONE concise, gentle paragraph per section (2 to 3 soothing sentences). Do NOT output multiple long paragraphs or bloated lists.
+3. Tone: Warm, soothing, feel-good, gentle, and comforting. Never cold or clinical.
+4. Formatting: Do NOT use emojis. Do NOT use markdown bold asterisks.
+5. Structure: Strictly format your response into these exact 4 sections with exactly ONE dash bullet (- ) per section:
 
 Core Neural Insight:
-- (2 deeply validating, reassuring insights on how their ${region.name} is responding to what they are experiencing, giving them permission to rest and soften)
+- (1 concise, validating paragraph on how their ${region.name} is responding and giving them permission to soften)
 
-Morning Mindful Rituals:
-- (2 gentle, practical morning rituals designed specifically to ease the feelings they described and nurture their mind)
+Morning Mindful Ritual:
+- (1 concise, gentle morning practice tailored to what they are experiencing)
 
 Daytime Flow & Energy:
-- (2 loving, sustainable daytime resets they can do throughout their day to release tension and maintain emotional balance)
+- (1 concise, loving daytime reset to maintain calm and release tension)
 
 Evening Wind-Down & Deep Rest:
-- (2 cozy, soothing nighttime rituals for deep nervous system recovery and restorative sleep)
+- (1 concise, cozy nighttime ritual for deep, restorative sleep)
 `;
 
       let aiText = "";

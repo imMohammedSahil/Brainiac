@@ -18,7 +18,7 @@ const handleAiImprove = async (req, res) => {
   let aiText = "";
 
   const systemMessage =
-    "You are a deeply warm, compassionate, loving, and supportive neuroscience-informed wellness companion. Always speak in a gentle, feel-good, empathetic tone that makes the user feel truly cared for, validated, and safe. Never use emojis or markdown asterisks. Directly weave the user's specific context and emotions into the rituals so every recommendation feels uniquely crafted for them. Provide practical, nourishing rituals divided clearly into 4 sections: Core Neural Insight, Morning Mindful Rituals, Daytime Flow & Energy, and Evening Wind-Down & Deep Rest.";
+    "You are a deeply warm, compassionate, loving, and supportive neuroscience-informed wellness companion. Always speak in a gentle, feel-good, empathetic tone that makes the user feel truly cared for, validated, and safe. Never use emojis or markdown asterisks. Directly weave the user's specific context and emotions into the rituals. Keep each of the 4 sections concise and focused to exactly ONE gentle, soothing paragraph (2 to 3 comforting sentences each). Provide 4 sections: Core Neural Insight, Morning Mindful Ritual, Daytime Flow & Energy, and Evening Wind-Down & Deep Rest.";
 
   // 1. Google Gemini 2.5 Flash (Ultra-Fast ~300ms, deeply personalized)
   const geminiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
@@ -42,12 +42,12 @@ const handleAiImprove = async (req, res) => {
             },
             contents: [
               {
-                parts: [{ text: prompt || `User is experiencing: "${userInput}". Nurturing brain region: ${regionName}, focus: ${focus}. Create 4 sections: Core Neural Insight, Morning Mindful Rituals, Daytime Flow & Energy, Evening Wind-Down & Deep Rest.` }]
+                parts: [{ text: prompt || `User is experiencing: "${userInput}". Nurturing brain region: ${regionName}, focus: ${focus}. Provide exactly ONE concise, comforting paragraph per section.` }]
               }
             ],
             generationConfig: {
-              temperature: 0.75,
-              maxOutputTokens: 800,
+              temperature: 0.7,
+              maxOutputTokens: 550,
               thinkingConfig: { thinkingBudget: 0 }
             }
           })
@@ -86,7 +86,7 @@ const handleAiImprove = async (req, res) => {
             { role: "system", content: systemMessage },
             { role: "user", content: prompt },
           ],
-          temperature: 0.75,
+          temperature: 0.7,
         }),
       });
       clearTimeout(timeout);
@@ -116,7 +116,7 @@ const handleAiImprove = async (req, res) => {
             { role: "system", content: systemMessage },
             { role: "user", content: prompt },
           ],
-          temperature: 0.75,
+          temperature: 0.7,
         }),
       });
       clearTimeout(timeout);
@@ -159,20 +159,16 @@ function generateCarePlan(regionName = "Brain Region", focus = "Calm & Emotional
     : `Nurturing your ${regionName} begins with honoring how much you carry and giving your mind permission to soften and rest.`;
 
   return `Core Neural Insight:
-- ${userSnippet}
-- Prioritizing ${focus} lovingly restores your natural inner ease, emotional stability, and clear, joyful energy.
+- ${userSnippet} Prioritizing ${focus} lovingly restores your natural inner ease, emotional stability, and clear, joyful energy.
 
-Morning Mindful Rituals:
-- Begin your morning with 5 slow, comforting breaths, holding a kind and loving intention for your day.
-- Enjoy a warm glass of water in peaceful stillness before engaging with any screens or demanding tasks.
+Morning Mindful Ritual:
+- Begin your morning with 5 slow, comforting breaths, enjoying a warm glass of water in peaceful stillness before engaging with any screens.
 
 Daytime Flow & Energy:
-- Give yourself permission to pause regularly, gently dropping your shoulders and releasing tension with an easy exhale.
-- Whenever you feel weary, step near a window or into fresh air for a moment of quiet, loving reconnection with yourself.
+- Give yourself permission to take regular micro-pauses throughout the day, gently dropping your shoulders and releasing tension with an easy exhale.
 
 Evening Wind-Down & Deep Rest:
-- Create a cozy, dimly lit sanctuary 45 minutes before bedtime to welcome soothing calmness into your nervous system.
-- Reflect on three gentle moments you appreciate today, drifting into deep, restorative, healing sleep.`;
+- Create a cozy, dimly lit sanctuary 45 minutes before bedtime to welcome soothing calmness, drifting into deep, restorative, healing sleep.`;
 }
 
 const PORT = process.env.PORT || 5000;
