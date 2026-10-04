@@ -2615,7 +2615,7 @@ const fullPageStyles = `
 
   /* ════════════════════════════════════════════════════════════
      BESPOKE ARCHITECTURAL PDF DOSSIER STYLES (@media print)
-     Spacious, Airy White Canvas with Generous Breathing Space
+     Warm, Loving, Spacious Editorial Sanctuary Design
      ════════════════════════════════════════════════════════════ */
   .cr-print-dossier {
     display: none;
@@ -2624,7 +2624,7 @@ const fullPageStyles = `
   @media print {
     @page {
       size: A4 portrait;
-      margin: 14mm 16mm 16mm 16mm;
+      margin: 10mm 12mm 10mm 12mm;
     }
 
     *, *::before, *::after {
@@ -2636,11 +2636,11 @@ const fullPageStyles = `
 
     html, body {
       background: #ffffff !important;
-      color: #09090b !important;
+      color: #1c1917 !important;
       margin: 0 !important;
       padding: 0 !important;
       width: 100% !important;
-      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
       -webkit-font-smoothing: antialiased;
     }
 
@@ -2666,32 +2666,38 @@ const fullPageStyles = `
     .cr-print-dossier {
       display: block !important;
       background: #ffffff !important;
-      color: #09090b !important;
+      color: #1c1917 !important;
       width: 100% !important;
       padding: 0 !important;
       margin: 0 !important;
     }
 
-    /* Physical Page Management with Airy Breathing Room */
+    /* Physical 2-Page Strict Geometry with Bottom-Pinned Footers */
     .cr-pdoc-page {
       background: #ffffff !important;
-      color: #09090b !important;
-      display: flex;
-      flex-direction: column;
-      width: 100%;
+      color: #1c1917 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: space-between !important;
+      width: 100% !important;
+      height: 275mm !important;
+      min-height: 275mm !important;
+      max-height: 275mm !important;
+      overflow: hidden !important;
+      box-sizing: border-box !important;
+      padding: 0 0 2mm 0 !important;
+      page-break-inside: avoid !important;
+      break-inside: avoid !important;
     }
 
     .cr-pdoc-page-1 {
       page-break-after: always !important;
       break-after: page !important;
-      min-height: 265mm;
     }
 
     .cr-pdoc-page-2 {
       page-break-before: always !important;
       break-before: page !important;
-      min-height: 265mm;
-      padding-top: 2mm;
     }
 
     /* Top Metadata Bar */
@@ -2699,53 +2705,53 @@ const fullPageStyles = `
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 2px solid #09090b !important;
-      padding-bottom: 10px;
-      margin-bottom: 18px;
+      border-bottom: 1.5px solid #292524 !important;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
     }
 
     .cr-pdoc-seal {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
     .cr-pdoc-emblem {
-      font-size: 19px;
-      color: #09090b !important;
+      font-size: 16px;
+      color: #292524 !important;
     }
 
     .cr-pdoc-seal-text {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 1px;
     }
 
     .cr-pdoc-brand-title {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 11.5px;
+      font-size: 10.5px;
       font-weight: 800;
-      letter-spacing: 0.12em;
-      color: #09090b !important;
+      letter-spacing: 0.1em;
+      color: #1c1917 !important;
     }
 
     .cr-pdoc-brand-sub {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 8px;
+      font-size: 7.5px;
       font-weight: 700;
-      letter-spacing: 0.08em;
-      color: #52525b !important;
+      letter-spacing: 0.06em;
+      color: #78716c !important;
     }
 
     .cr-pdoc-ref-group {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 8.5px;
+      font-size: 8px;
       font-weight: 700;
-      color: #3f3f46 !important;
-      letter-spacing: 0.08em;
+      color: #44403c !important;
+      letter-spacing: 0.06em;
     }
 
     .cr-pdoc-ref-item {
@@ -2754,15 +2760,16 @@ const fullPageStyles = `
     }
 
     .cr-pdoc-ref-k {
-      color: #71717a !important;
+      color: #a8a29e !important;
     }
 
     .cr-pdoc-ref-v {
-      color: #09090b !important;
+      color: #1c1917 !important;
+      font-weight: 800;
     }
 
     .cr-pdoc-meta-sep {
-      color: #d4d4d8 !important;
+      color: #e7e5e4 !important;
     }
 
     /* Subpage Header for Page 2 */
@@ -2770,77 +2777,77 @@ const fullPageStyles = `
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1.5px solid #09090b !important;
-      padding-bottom: 9px;
-      margin-bottom: 18px;
+      border-bottom: 1.5px solid #292524 !important;
+      padding-bottom: 7px;
+      margin-bottom: 12px;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 8.5px;
+      font-size: 8px;
       font-weight: 700;
-      color: #52525b !important;
+      color: #78716c !important;
       letter-spacing: 0.08em;
     }
 
     .cr-pdoc-subpage-brand {
       display: flex;
       align-items: center;
-      gap: 8px;
-      color: #09090b !important;
+      gap: 6px;
+      color: #1c1917 !important;
       font-weight: 800;
     }
 
     .cr-pdoc-subpage-meta {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
-    /* Hero Frame with Airy Breathing Space */
+    /* Hero Frame with Warm Gentle Sanctuary Glow */
     .cr-pdoc-hero-frame {
-      border: 1px solid #e4e4e7 !important;
-      border-radius: 14px;
-      padding: 20px 22px;
-      background: #fafafa !important;
-      margin-bottom: 18px;
+      border: 1px solid #e7e5e4 !important;
+      border-radius: 12px;
+      padding: 14px 18px;
+      background: #faf8f5 !important;
+      margin-bottom: 12px;
       page-break-inside: avoid;
       break-inside: avoid;
     }
 
     .cr-pdoc-hero-pills {
       display: flex;
-      gap: 8px;
+      gap: 6px;
       align-items: center;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .cr-pdoc-pill-primary {
-      background: #09090b !important;
+      background: #292524 !important;
       color: #ffffff !important;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 8.5px;
+      font-size: 7.5px;
       font-weight: 800;
       letter-spacing: 0.08em;
-      padding: 3px 10px;
+      padding: 2.5px 8px;
       border-radius: 100px;
     }
 
     .cr-pdoc-pill-secondary {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 8.5px;
+      font-size: 7.5px;
       font-weight: 700;
-      color: #09090b !important;
-      border: 1px solid #09090b !important;
-      padding: 2.5px 9px;
+      color: #292524 !important;
+      border: 1px solid #292524 !important;
+      padding: 2px 8px;
       border-radius: 100px;
       background: #ffffff !important;
     }
 
     .cr-pdoc-pill-outline {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 8px;
+      font-size: 7.5px;
       font-weight: 700;
-      color: #52525b !important;
-      border: 1px solid #d4d4d8 !important;
-      padding: 2.5px 8px;
+      color: #78716c !important;
+      border: 1px solid #d6d3d1 !important;
+      padding: 2px 7px;
       border-radius: 100px;
       background: #ffffff !important;
     }
@@ -2849,61 +2856,61 @@ const fullPageStyles = `
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
     .cr-pdoc-main-title {
-      font-size: 27px;
+      font-size: 23px;
       font-weight: 800;
-      color: #09090b !important;
-      letter-spacing: -0.03em;
+      color: #1c1917 !important;
+      letter-spacing: -0.02em;
       margin: 0;
       line-height: 1.15;
     }
 
     .cr-pdoc-status-badge {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 8px;
+      font-size: 7.5px;
       font-weight: 800;
       letter-spacing: 0.1em;
       color: #ffffff !important;
-      background: #09090b !important;
-      padding: 3px 9px;
+      background: #292524 !important;
+      padding: 2.5px 8px;
       border-radius: 4px;
     }
 
     .cr-pdoc-main-subtitle {
-      font-size: 12px;
+      font-size: 10.5px;
       font-weight: 500;
-      color: #3f3f46 !important;
-      margin: 0 0 14px;
-      line-height: 1.5;
+      color: #57534e !important;
+      margin: 0 0 10px;
+      line-height: 1.45;
     }
 
     .cr-pdoc-main-subtitle strong {
-      color: #09090b !important;
+      color: #1c1917 !important;
       font-weight: 700;
     }
 
     .cr-pdoc-executive-quote {
-      background: #f4f4f5 !important;
-      border-left: 3.5px solid #09090b !important;
-      padding: 11px 15px;
-      font-size: 11px;
-      line-height: 1.6;
-      color: #18181b !important;
-      margin-bottom: 16px;
+      background: #f5f5f4 !important;
+      border-left: 3px solid #292524 !important;
+      padding: 8px 12px;
+      font-size: 9.5px;
+      line-height: 1.5;
+      color: #292524 !important;
+      margin-bottom: 11px;
       display: flex;
-      gap: 10px;
+      gap: 8px;
       align-items: flex-start;
       border-radius: 0 6px 6px 0;
     }
 
     .cr-pdoc-quote-icon {
-      font-size: 14px;
-      color: #09090b !important;
+      font-size: 12px;
+      color: #292524 !important;
       line-height: 1;
-      margin-top: 2px;
+      margin-top: 1px;
     }
 
     .cr-pdoc-executive-quote p {
@@ -2914,45 +2921,44 @@ const fullPageStyles = `
     .cr-pdoc-quadrant-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 9px;
+      gap: 7px;
     }
 
     .cr-pdoc-quad-cell {
       background: #ffffff !important;
-      border: 1px solid #e4e4e7 !important;
+      border: 1px solid #e7e5e4 !important;
       border-radius: 8px;
-      padding: 10px 12px;
+      padding: 8px 10px;
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 2px;
     }
 
     .cr-pdoc-cell-label {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 7.5px;
+      font-size: 7px;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: #71717a !important;
+      color: #78716c !important;
     }
 
     .cr-pdoc-cell-value {
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 800;
-      color: #09090b !important;
-      line-height: 1.3;
+      color: #1c1917 !important;
+      line-height: 1.25;
     }
 
     .cr-pdoc-cell-note {
-      font-size: 9px;
-      color: #52525b !important;
-      line-height: 1.35;
-      margin-top: 1px;
+      font-size: 8px;
+      color: #78716c !important;
+      line-height: 1.3;
     }
 
-    /* Section Blocks with Airy Spacing */
+    /* Section Blocks with Balanced Spacing */
     .cr-pdoc-section-block {
-      margin-bottom: 18px;
+      margin-bottom: 12px;
       page-break-inside: avoid;
       break-inside: avoid;
     }
@@ -2960,26 +2966,26 @@ const fullPageStyles = `
     .cr-pdoc-section-title-row {
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 12px;
+      gap: 8px;
+      margin-bottom: 8px;
     }
 
     .cr-pdoc-sec-badge {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 8.5px;
+      font-size: 7.5px;
       font-weight: 800;
       color: #ffffff !important;
-      background: #09090b !important;
-      padding: 2.5px 8px;
+      background: #292524 !important;
+      padding: 2px 7px;
       border-radius: 3px;
     }
 
     .cr-pdoc-sec-heading {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 11.5px;
+      font-size: 10px;
       font-weight: 800;
       letter-spacing: 0.08em;
-      color: #09090b !important;
+      color: #1c1917 !important;
       margin: 0;
       white-space: nowrap;
     }
@@ -2987,22 +2993,22 @@ const fullPageStyles = `
     .cr-pdoc-sec-rule {
       flex: 1;
       height: 1px;
-      background: #e4e4e7 !important;
+      background: #e7e5e4 !important;
     }
 
-    /* Pillar 1 Modules Matrix */
+    /* Part 1: Loving Steps 2x2 Grid */
     .cr-pdoc-modules-matrix {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 11px;
+      gap: 8px;
     }
 
     .cr-pdoc-matrix-cell {
-      background: #fcfcfc !important;
-      border: 1px solid #e4e4e7 !important;
-      border-left: 3.5px solid #09090b !important;
-      border-radius: 10px;
-      padding: 12px 14px;
+      background: #faf8f5 !important;
+      border: 1px solid #e7e5e4 !important;
+      border-left: 3px solid #292524 !important;
+      border-radius: 8px;
+      padding: 9px 11px;
       page-break-inside: avoid;
       break-inside: avoid;
     }
@@ -3010,20 +3016,20 @@ const fullPageStyles = `
     .cr-pdoc-matrix-header {
       display: flex;
       align-items: center;
-      gap: 8px;
-      margin-bottom: 8px;
-      padding-bottom: 6px;
-      border-bottom: 1px solid #e4e4e7 !important;
+      gap: 6px;
+      margin-bottom: 6px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid #e7e5e4 !important;
     }
 
     .cr-pdoc-matrix-num {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 8.5px;
+      font-size: 7.5px;
       font-weight: 800;
-      background: #09090b !important;
+      background: #292524 !important;
       color: #ffffff !important;
-      width: 17px;
-      height: 17px;
+      width: 15px;
+      height: 15px;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -3032,22 +3038,22 @@ const fullPageStyles = `
 
     .cr-pdoc-matrix-title {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 10.5px;
+      font-size: 9.5px;
       font-weight: 700;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
-      color: #09090b !important;
+      color: #1c1917 !important;
       margin: 0;
       flex: 1;
     }
 
     .cr-pdoc-matrix-tag {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 7.5px;
+      font-size: 7px;
       font-weight: 700;
-      color: #52525b !important;
-      border: 1px solid #d4d4d8 !important;
-      padding: 1px 5px;
+      color: #78716c !important;
+      border: 1px solid #d6d3d1 !important;
+      padding: 1px 4px;
       border-radius: 2px;
       background: #ffffff !important;
     }
@@ -3056,7 +3062,7 @@ const fullPageStyles = `
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 4px;
       padding: 0;
       margin: 0;
     }
@@ -3064,192 +3070,192 @@ const fullPageStyles = `
     .cr-pdoc-matrix-item {
       display: flex;
       align-items: flex-start;
-      gap: 7px;
-      font-size: 10.5px;
-      line-height: 1.55;
-      color: #27272a !important;
+      gap: 6px;
+      font-size: 9px;
+      line-height: 1.45;
+      color: #292524 !important;
     }
 
     .cr-pdoc-bullet {
-      font-size: 7.5px;
-      color: #09090b !important;
+      font-size: 6.5px;
+      color: #292524 !important;
       margin-top: 3px;
       flex-shrink: 0;
     }
 
-    /* Page Footers */
+    /* Page 1 Footer - Pinned to bottom of page 1 */
     .cr-pdoc-page-footer {
-      margin-top: auto;
-      padding-top: 10px;
-      border-top: 1px solid #e4e4e7 !important;
+      margin-top: auto !important;
+      padding-top: 8px;
+      border-top: 1px solid #e7e5e4 !important;
       display: flex;
       justify-content: space-between;
       align-items: center;
       font-family: 'JetBrains Mono', monospace;
       font-size: 7.5px;
       font-weight: 700;
-      color: #71717a !important;
+      color: #78716c !important;
       letter-spacing: 0.08em;
     }
 
-    /* Pillar 2 Breathwork Horizontal Strip */
+    /* Part 2: Breathwork Horizontal Strip */
     .cr-pdoc-breath-strip {
       display: flex;
       align-items: stretch;
-      gap: 8px;
-      background: #fafafa !important;
-      border: 1px solid #e4e4e7 !important;
-      border-radius: 12px;
-      padding: 10px;
+      gap: 6px;
+      background: #faf8f5 !important;
+      border: 1px solid #e7e5e4 !important;
+      border-radius: 10px;
+      padding: 8px;
     }
 
     .cr-pdoc-b-step {
       flex: 1;
       background: #ffffff !important;
-      border: 1px solid #e4e4e7 !important;
-      border-radius: 8px;
-      padding: 10px 11px;
+      border: 1px solid #e7e5e4 !important;
+      border-radius: 7px;
+      padding: 8px 9px;
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 2px;
     }
 
     .cr-pdoc-b-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 3px;
+      margin-bottom: 2px;
     }
 
     .cr-pdoc-b-tag {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 7.5px;
+      font-size: 7px;
       font-weight: 800;
       color: #ffffff !important;
-      background: #09090b !important;
-      padding: 1.5px 5px;
+      background: #292524 !important;
+      padding: 1px 4px;
       border-radius: 2px;
     }
 
     .cr-pdoc-b-time {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 8px;
+      font-size: 7.5px;
       font-weight: 700;
-      color: #52525b !important;
+      color: #78716c !important;
     }
 
     .cr-pdoc-b-action {
-      font-size: 11.5px;
+      font-size: 10px;
       font-weight: 800;
-      color: #09090b !important;
+      color: #1c1917 !important;
       margin: 0;
     }
 
     .cr-pdoc-b-desc {
-      font-size: 9.5px;
-      line-height: 1.4;
-      color: #3f3f46 !important;
+      font-size: 8px;
+      line-height: 1.35;
+      color: #57534e !important;
       margin: 0;
     }
 
     .cr-pdoc-b-impact {
-      font-size: 7.5px;
+      font-size: 7px;
       font-style: italic;
-      color: #52525b !important;
-      border-top: 1px dashed #e4e4e7 !important;
-      padding-top: 4px;
-      margin-top: 4px;
+      color: #78716c !important;
+      border-top: 1px dashed #e7e5e4 !important;
+      padding-top: 3px;
+      margin-top: 3px;
     }
 
     .cr-pdoc-b-connector {
       display: flex;
       align-items: center;
-      font-size: 14px;
-      color: #a1a1aa !important;
+      font-size: 12px;
+      color: #d6d3d1 !important;
       font-weight: 800;
     }
 
-    /* Pillar 3 Timeline & Habits Table */
+    /* Part 3: Timeline & Habits Checklist Table */
     .cr-pdoc-timeline-strip {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 7px;
-      margin-bottom: 11px;
+      gap: 6px;
+      margin-bottom: 8px;
     }
 
     .cr-pdoc-time-node {
-      background: #fafafa !important;
-      border: 1px solid #e4e4e7 !important;
-      border-radius: 8px;
-      padding: 9px 11px;
+      background: #faf8f5 !important;
+      border: 1px solid #e7e5e4 !important;
+      border-radius: 7px;
+      padding: 7px 9px;
     }
 
     .cr-pdoc-time-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 3px;
+      margin-bottom: 2px;
     }
 
     .cr-pdoc-time-badge {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 8px;
+      font-size: 7px;
       font-weight: 800;
       color: #ffffff !important;
-      background: #09090b !important;
-      padding: 1.5px 5px;
+      background: #292524 !important;
+      padding: 1px 4px;
       border-radius: 2px;
       display: inline-block;
     }
 
     .cr-pdoc-time-phase {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 7px;
+      font-size: 6.5px;
       font-weight: 700;
-      color: #71717a !important;
+      color: #78716c !important;
     }
 
     .cr-pdoc-time-title {
-      font-size: 10.5px;
+      font-size: 9.5px;
       font-weight: 800;
-      color: #09090b !important;
-      margin: 0 0 2px;
+      color: #1c1917 !important;
+      margin: 0 0 1px;
     }
 
     .cr-pdoc-time-text {
-      font-size: 9px;
-      line-height: 1.4;
-      color: #52525b !important;
+      font-size: 7.5px;
+      line-height: 1.35;
+      color: #57534e !important;
       margin: 0;
     }
 
     .cr-pdoc-check-table {
       background: #ffffff !important;
-      border: 1px solid #e4e4e7 !important;
-      border-radius: 10px;
+      border: 1px solid #e7e5e4 !important;
+      border-radius: 8px;
       overflow: hidden;
     }
 
     .cr-pdoc-table-header {
       display: grid;
-      grid-template-columns: 60px 160px 1fr;
-      padding: 6px 12px;
-      background: #f4f4f5 !important;
-      border-bottom: 1.5px solid #09090b !important;
+      grid-template-columns: 50px 140px 1fr;
+      padding: 5px 10px;
+      background: #f5f5f4 !important;
+      border-bottom: 1.5px solid #292524 !important;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 8px;
+      font-size: 7.5px;
       font-weight: 800;
       letter-spacing: 0.08em;
-      color: #09090b !important;
+      color: #1c1917 !important;
     }
 
     .cr-pdoc-table-row {
       display: grid;
-      grid-template-columns: 60px 160px 1fr;
-      padding: 6px 12px;
+      grid-template-columns: 50px 140px 1fr;
+      padding: 4px 10px;
       align-items: center;
-      border-bottom: 1px solid #f4f4f5 !important;
-      font-size: 10px;
+      border-bottom: 1px solid #f5f5f4 !important;
+      font-size: 8.5px;
     }
 
     .cr-pdoc-table-row:last-child {
@@ -3258,71 +3264,71 @@ const fullPageStyles = `
 
     .cr-pdoc-td-box {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
+      font-size: 8.5px;
       font-weight: 700;
-      color: #09090b !important;
+      color: #292524 !important;
     }
 
     .cr-pdoc-td-cat {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
+      font-size: 7.5px;
       font-weight: 700;
-      color: #09090b !important;
+      color: #292524 !important;
     }
 
     .cr-pdoc-td-desc {
-      color: #27272a !important;
-      line-height: 1.4;
+      color: #44403c !important;
+      line-height: 1.35;
     }
 
-    /* Pillar 4 Science & Tribute Bottom Grid */
+    /* Part 4: Science & Tribute Bottom Grid */
     .cr-pdoc-bottom-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 11px;
+      gap: 8px;
     }
 
     .cr-pdoc-science-panel,
     .cr-pdoc-tribute-panel {
-      background: #ffffff !important;
-      border: 1px solid #e4e4e7 !important;
-      border-left: 3.5px solid #09090b !important;
-      border-radius: 10px;
-      padding: 12px 14px;
+      background: #faf8f5 !important;
+      border: 1px solid #e7e5e4 !important;
+      border-left: 3px solid #292524 !important;
+      border-radius: 8px;
+      padding: 9px 11px;
     }
 
     .cr-pdoc-panel-hdr {
       display: flex;
       align-items: center;
-      gap: 6px;
-      margin-bottom: 6px;
-      padding-bottom: 5px;
-      border-bottom: 1px solid #e4e4e7 !important;
+      gap: 5px;
+      margin-bottom: 4px;
+      padding-bottom: 3px;
+      border-bottom: 1px solid #e7e5e4 !important;
     }
 
     .cr-pdoc-panel-icon {
-      font-size: 11px;
-      color: #09090b !important;
+      font-size: 9.5px;
+      color: #292524 !important;
     }
 
     .cr-pdoc-panel-heading {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 9.5px;
+      font-size: 8.5px;
       font-weight: 800;
-      letter-spacing: 0.08em;
-      color: #09090b !important;
+      letter-spacing: 0.06em;
+      color: #1c1917 !important;
       margin: 0;
     }
 
     .cr-pdoc-ev-line {
-      font-size: 10px;
-      line-height: 1.5;
-      color: #27272a !important;
-      margin-bottom: 6px;
+      font-size: 8.5px;
+      line-height: 1.4;
+      color: #44403c !important;
+      margin-bottom: 4px;
     }
 
     .cr-pdoc-ev-line strong {
-      color: #09090b !important;
+      color: #1c1917 !important;
     }
 
     .cr-pdoc-ev-line:last-child {
@@ -3330,60 +3336,60 @@ const fullPageStyles = `
     }
 
     .cr-pdoc-tribute-text {
-      font-size: 10px;
-      line-height: 1.5;
-      color: #18181b !important;
-      margin-bottom: 6px;
+      font-size: 8.5px;
+      line-height: 1.4;
+      color: #292524 !important;
+      margin-bottom: 4px;
     }
 
     .cr-pdoc-tribute-sub {
-      font-size: 9px;
-      line-height: 1.45;
-      color: #52525b !important;
+      font-size: 7.5px;
+      line-height: 1.35;
+      color: #78716c !important;
       margin: 0;
     }
 
-    /* Final Document Footer with Generous Separation pushed to the bottom */
+    /* Final Document Footer - STRICTLY PINNED to the bottom of Page 2 */
     .cr-pdoc-final-footer {
-      border-top: 2px solid #09090b !important;
-      padding-top: 16px !important;
+      border-top: 1.5px solid #292524 !important;
+      padding-top: 10px !important;
       margin-top: auto !important;
-      padding-bottom: 2mm !important;
-      page-break-inside: avoid;
-      break-inside: avoid;
+      padding-bottom: 1mm !important;
+      page-break-inside: avoid !important;
+      break-inside: avoid !important;
     }
 
     .cr-pdoc-footer-inner {
       display: grid;
       grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      gap: 14px;
+      gap: 10px;
     }
 
     .cr-pdoc-footer-left {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 1px;
     }
 
     .cr-pdoc-footer-seal-line {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
     }
 
     .cr-pdoc-foot-brand {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 9.5px;
+      font-size: 8.5px;
       font-weight: 800;
-      letter-spacing: 0.1em;
-      color: #09090b !important;
+      letter-spacing: 0.08em;
+      color: #1c1917 !important;
     }
 
     .cr-pdoc-foot-sub {
-      font-size: 8px;
-      color: #71717a !important;
-      line-height: 1.35;
+      font-size: 7px;
+      color: #78716c !important;
+      line-height: 1.3;
     }
 
     .cr-pdoc-footer-center {
@@ -3392,52 +3398,52 @@ const fullPageStyles = `
     }
 
     .cr-pdoc-signature-line {
-      border: 1px dashed #09090b !important;
-      padding: 5px 12px;
+      border: 1px dashed #292524 !important;
+      padding: 4px 10px;
       border-radius: 4px;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 1px;
-      background: #fafafa !important;
+      background: #faf8f5 !important;
     }
 
     .cr-pdoc-sig-label {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 7px;
-      color: #71717a !important;
-      letter-spacing: 0.08em;
+      font-size: 6.5px;
+      color: #78716c !important;
+      letter-spacing: 0.06em;
     }
 
     .cr-pdoc-sig-value {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 8.5px;
+      font-size: 7.5px;
       font-weight: 800;
-      color: #09090b !important;
-      letter-spacing: 0.08em;
+      color: #1c1917 !important;
+      letter-spacing: 0.06em;
     }
 
     .cr-pdoc-footer-right {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 1px;
       align-items: flex-end;
     }
 
     .cr-pdoc-foot-blessing {
-      font-size: 9.5px;
+      font-size: 8px;
       font-style: italic;
-      color: #09090b !important;
+      color: #1c1917 !important;
       text-align: right;
     }
 
     .cr-pdoc-foot-ver {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 8px;
+      font-size: 7px;
       font-weight: 700;
-      color: #71717a !important;
+      color: #78716c !important;
       text-align: right;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
     }
   }
 `;
