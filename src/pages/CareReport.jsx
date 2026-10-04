@@ -57,7 +57,20 @@ export default function CareReport() {
         } else {
           // Sample default fallback
           activeData = {
-            result: `Core Neural Insight:\n- Nurturing your Prefrontal Cortex begins with honoring how much you carry and giving your mind permission to soften and rest.\n- Prioritizing Calm & Emotional Balance lovingly restores your natural inner ease, emotional stability, and clear, joyful energy.\n\nMorning Mindful Ritual:\n- Begin your morning with 5 slow, comforting breaths, holding a kind and loving intention for your day.\n- Enjoy a warm glass of water in peaceful stillness before engaging with any screens or demanding tasks.\n\nDaytime Flow & Energy:\n- Give yourself permission to pause regularly, gently dropping your shoulders and releasing tension with an easy exhale.\n- Whenever you feel weary, step near a window or into fresh air for a moment of quiet, loving reconnection with yourself.\n\nEvening Wind-Down & Deep Rest:\n- Create a cozy, dimly lit sanctuary 45 minutes before bedtime to welcome soothing calmness into your nervous system.\n- Reflect on three gentle moments you appreciate today, drifting into deep, restorative, healing sleep.`,
+            result: `Core Neural Insight:
+Nurturing your Prefrontal Cortex begins with honoring how much you carry and giving your mind wholehearted permission to soften and rest. Prioritizing Calm & Emotional Balance lovingly creates the safe internal space your brain needs to restore natural inner ease, emotional stability, and clear, joyful energy.
+
+Morning Mindful Ritual:
+Begin your morning with 5 slow, comforting breaths before leaving bed, bringing to mind one kind word to gently carry with you throughout the day ahead. Enjoy a warm glass of water in peaceful stillness near a window, letting soft natural light gently awaken your frontal pathways without the rush of screens.
+
+Daytime Flow & Reset:
+Take regular micro-pauses throughout your day to gently drop your shoulders, unclamp your jaw, and release built-up tension with an easy, extended exhale. Whenever your mind feels crowded, step into fresh air for two quiet minutes to reconnect with your natural rhythm.
+
+Sensory Grounding Pause:
+Whenever you notice fatigue or mental overload setting in, pause for two minutes with a cup of warm tea or step into fresh air to lovingly reground your senses. Allow the gentle warmth and grounding physical sensations to soothe your nervous system.
+
+Evening Wind-Down & Deep Rest:
+Create a cozy, dimly lit sanctuary 45 minutes before bedtime, closing demanding tabs and letting warm lighting signal complete safety to your nervous system. Reflect on three quiet, comforting moments you appreciate from today, allowing your body to soften into deep, restorative, and healing sleep.`,
             region: {
               name: "Prefrontal Cortex",
               summary: "Guides decision-making, calm focus, self-reflection, and goal direction.",
@@ -136,10 +149,19 @@ export default function CareReport() {
     }
   }, [breathCycles, completedHabits, activeRegionKey, result, region, focus, location.state]);
 
-  // Parse Sections Helper
+  // Parse Sections Helper: Strictly ensures each card contains EXACTLY ONE cohesive single paragraph
   const parseSections = (rawText) => {
     if (!rawText) return [];
-    const rawBlocks = rawText.split(/\n\s*\n/).filter((b) => b.trim().length > 0);
+    
+    // Normalize headers
+    const normalized = rawText
+      .replace(/\*\*/g, "")
+      .replace(
+        /(Core Neural Insight|Morning Mindful Rituals?|Daytime Flow & (?:Energy|Reset)|Sensory Grounding Pause|Evening Wind-Down & Deep Rest):?/gi,
+        "\n\n###HEADER### $1:\n"
+      );
+
+    const rawBlocks = normalized.split(/\n\s*###HEADER###\s*/).filter((b) => b.trim().length > 0);
     const parsed = [];
 
     rawBlocks.forEach((block, idx) => {
@@ -147,55 +169,152 @@ export default function CareReport() {
       if (lines.length === 0) return;
 
       const firstLine = lines[0];
-      const isHeader =
-        firstLine.endsWith(":") ||
-        (!firstLine.startsWith("-") &&
-          !firstLine.startsWith("•") &&
-          !firstLine.startsWith("*") &&
-          lines.length > 1);
+      const isHeader = firstLine.endsWith(":");
 
       if (isHeader) {
-        const title = firstLine
-          .replace(/:$/, "")
-          .replace(/^#+\s*/, "")
-          .replace(/^\*+\s*/, "")
-          .trim();
-        const items = lines
-          .slice(1)
-          .map((l) => l.replace(/^[-*•]\s*/, "").trim())
-          .filter(Boolean);
-        parsed.push({
-          title,
-          items: items.length > 0 ? items : [lines[1] || title],
+        const title = firstLine.replace(/:$/, "").replace(/^#+\s*/, "").trim();
+        // Filter out any lines that just repeat section titles
+        const bodyLines = lines.slice(1).filter((l) => {
+          const cleanL = l.replace(/^[-*•:#\s]+/, "").trim().toLowerCase();
+          return (
+            cleanL !== title.toLowerCase() &&
+            cleanL !== "core neural insight" &&
+            cleanL !== "morning mindful ritual" &&
+            cleanL !== "morning mindful rituals" &&
+            cleanL !== "daytime flow & reset" &&
+            cleanL !== "daytime flow & energy" &&
+            cleanL !== "sensory grounding pause" &&
+            cleanL !== "evening wind-down & deep rest"
+          );
         });
+
+        const paragraph = bodyLines
+          .map((l) => l.replace(/^[-*•]\s*/, "").trim())
+          .filter(Boolean)
+          .join(" ");
+
+        if (paragraph) {
+          parsed.push({
+            title,
+            items: [paragraph],
+          });
+        }
       } else {
-        const items = lines
-          .map((l) => l.replace(/^[-*•]\s*/, "").trim())
-          .filter(Boolean);
-        parsed.push({
-          title: `Insight Module 0${idx + 1}`,
-          items,
+        const bodyLines = lines.filter((l) => {
+          const cleanL = l.replace(/^[-*•:#\s]+/, "").trim().toLowerCase();
+          return cleanL !== "core neural insight";
         });
+
+        const paragraph = bodyLines
+          .map((l) => l.replace(/^[-*•]\s*/, "").trim())
+          .filter(Boolean)
+          .join(" ");
+
+        if (paragraph) {
+          parsed.push({
+            title: idx === 0 ? "Core Neural Insight" : `Insight Module 0${idx + 1}`,
+            items: [paragraph],
+          });
+        }
       }
     });
 
     return parsed.length > 0
       ? parsed
-      : [{ title: "Personalized Care Protocol", items: [rawText] }];
+      : [{ title: "Core Neural Insight", items: [rawText] }];
   };
 
   const sections = parseSections(result);
 
-  // Extract checklist items
-  const allHabits = sections
-    .filter((sec) => !sec.title.toLowerCase().includes("insight"))
-    .flatMap((sec) =>
-      sec.items.map((item, itemIdx) => ({
-        id: `${sec.title}-${itemIdx}`,
-        section: sec.title,
-        text: item
-      }))
-    );
+  // Extract checklist items (guaranteeing 5 to 6 distinct, 2-line care actions)
+  const allHabits = (() => {
+    const list = [];
+
+    sections.forEach((sec) => {
+      const titleLower = sec.title.toLowerCase();
+      if (titleLower.includes("insight")) return;
+
+      const text = sec.items && sec.items[0] ? sec.items[0] : "";
+      if (!text) return;
+
+      const sentences = text.match(/[^.!?]+[.!?]+/g) || [text];
+
+      const clean = (s) => (s || "").replace(/^["'“”\s]+|["'“”\s]+$/g, "").trim();
+
+      if (titleLower.includes("morning")) {
+        if (sentences.length >= 2) {
+          list.push({
+            id: "morning-intention",
+            section: "Morning Mindful Ritual",
+            text: clean(sentences[0])
+          });
+          list.push({
+            id: "morning-nourish",
+            section: "Morning Mindful Ritual",
+            text: clean(sentences.slice(1).join(" "))
+          });
+        } else {
+          list.push({
+            id: "morning-ritual",
+            section: "Morning Mindful Ritual",
+            text: clean(text)
+          });
+        }
+      } else if (titleLower.includes("evening")) {
+        if (sentences.length >= 2) {
+          list.push({
+            id: "evening-sanctuary",
+            section: "Evening Wind-Down",
+            text: clean(sentences[0])
+          });
+          list.push({
+            id: "evening-rest",
+            section: "Evening Wind-Down",
+            text: clean(sentences.slice(1).join(" "))
+          });
+        } else {
+          list.push({
+            id: "evening-ritual",
+            section: "Evening Wind-Down",
+            text: clean(text)
+          });
+        }
+      } else {
+        list.push({
+          id: `${sec.title.toLowerCase().replace(/[^a-z0-9]/g, "-")}`,
+          section: sec.title,
+          text: clean(text)
+        });
+      }
+    });
+
+    const backupHabits = [
+      {
+        id: "supp-hydration",
+        section: "Sensory Grounding Pause",
+        text: "Sip a warm glass of water or herbal tea in peaceful stillness, letting your awareness rest gently in the soothing physical warmth."
+      },
+      {
+        id: "supp-vagal",
+        section: "Daytime Flow & Reset",
+        text: "Gently soften your facial muscles, unclamp your jaw, and take two slow, warm exhales to bring comforting reassurance to your nervous system."
+      },
+      {
+        id: "supp-sleep",
+        section: "Evening Wind-Down & Deep Rest",
+        text: "Dim bright ambient lighting 30 minutes before bed, allowing your mind to release the day and drift into deep, healing rest."
+      }
+    ];
+
+    for (const b of backupHabits) {
+      if (list.length >= 6) break;
+      if (!list.some((h) => h.id === b.id)) {
+        list.push(b);
+      }
+    }
+
+    return list.slice(0, 6);
+  })();
 
   const completedCount = Object.values(completedHabits).filter(Boolean).length;
   const totalHabits = allHabits.length || 1;
@@ -242,7 +361,7 @@ export default function CareReport() {
     const el = document.getElementById("care-content-anchor");
     if (el) {
       if (window.__lenis) {
-        window.__lenis.scrollTo(el, { duration: 1.8, offset: -24 });
+        window.__lenis.scrollTo(el, { duration: 2.4, offset: -24 });
       } else {
         el.scrollIntoView({ behavior: "smooth" });
       }
@@ -807,34 +926,7 @@ export default function CareReport() {
               </div>
             </section>
 
-            {/* Page 1 Footer */}
-            <div className="cr-pdoc-page-footer">
-              <span>BRAINIAC MINDFUL SANCTUARY • GENTLE CARE FOR YOUR {region.name.toUpperCase()}</span>
-              <span>PAGE 01 OF 02</span>
-            </div>
-
-          </div>
-
-
-          {/* ══════════════════════════════════════════════════
-              PHYSICAL DOSSIER PAGE 2: BREATHWORK, RHYTHM & TRIBUTE
-              ══════════════════════════════════════════════════ */}
-          <div className="cr-pdoc-page cr-pdoc-page-2">
-
-            {/* Top Mini Header for Page 2 */}
-            <div className="cr-pdoc-subpage-header">
-              <div className="cr-pdoc-subpage-brand">
-                <span className="cr-pdoc-emblem">◈</span>
-                <span>BRAINIAC MINDFUL SANCTUARY • GENTLE CARE GUIDE</span>
-              </div>
-              <div className="cr-pdoc-subpage-meta">
-                <span>FOR: {region.name.toUpperCase()}</span>
-                <span className="cr-pdoc-meta-sep">/</span>
-                <span>PAGE 02 OF 02</span>
-              </div>
-            </div>
-
-            {/* PART 2: COMFORTING BREATH SPACE */}
+            {/* PART 02: COMFORTING BREATH SPACE */}
             <section className="cr-pdoc-section-block">
               <div className="cr-pdoc-section-title-row">
                 <span className="cr-pdoc-sec-badge">PART 02</span>
@@ -890,6 +982,33 @@ export default function CareReport() {
                 </div>
               </div>
             </section>
+
+            {/* Page 1 Footer */}
+            <div className="cr-pdoc-page-footer">
+              <span>BRAINIAC MINDFUL SANCTUARY • GENTLE CARE FOR YOUR {region.name.toUpperCase()}</span>
+              <span>PAGE 01 OF 02</span>
+            </div>
+
+          </div>
+
+
+          {/* ══════════════════════════════════════════════════
+              PHYSICAL DOSSIER PAGE 2: RHYTHM, CHECKLIST & TRIBUTE
+              ══════════════════════════════════════════════════ */}
+          <div className="cr-pdoc-page cr-pdoc-page-2">
+
+            {/* Top Mini Header for Page 2 */}
+            <div className="cr-pdoc-subpage-header">
+              <div className="cr-pdoc-subpage-brand">
+                <span className="cr-pdoc-emblem">◈</span>
+                <span>BRAINIAC MINDFUL SANCTUARY • GENTLE CARE GUIDE</span>
+              </div>
+              <div className="cr-pdoc-subpage-meta">
+                <span>FOR: {region.name.toUpperCase()}</span>
+                <span className="cr-pdoc-meta-sep">/</span>
+                <span>PAGE 02 OF 02</span>
+              </div>
+            </div>
 
             {/* PART 3: PEACEFUL DAILY RHYTHM & CHECKLIST */}
             <section className="cr-pdoc-section-block">
@@ -3000,7 +3119,7 @@ const fullPageStyles = `
     .cr-pdoc-modules-matrix {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 7px;
+      gap: 9px;
     }
 
     .cr-pdoc-matrix-cell {
@@ -3008,7 +3127,7 @@ const fullPageStyles = `
       border: 1px solid #e7e5e4 !important;
       border-left: 3px solid #292524 !important;
       border-radius: 8px;
-      padding: 8px 10px;
+      padding: 10px 12px;
       page-break-inside: avoid;
       break-inside: avoid;
     }
@@ -3018,6 +3137,7 @@ const fullPageStyles = `
       grid-column: 1 / -1;
       background: #f5f3ef !important;
       border-left: 3.5px solid #292524 !important;
+      padding: 11px 14px;
     }
 
     .cr-pdoc-matrix-header {
@@ -3078,8 +3198,8 @@ const fullPageStyles = `
       display: flex;
       align-items: flex-start;
       gap: 6px;
-      font-size: 9px;
-      line-height: 1.45;
+      font-size: 9.5px;
+      line-height: 1.55;
       color: #292524 !important;
     }
 
@@ -3090,7 +3210,7 @@ const fullPageStyles = `
       flex-shrink: 0;
     }
 
-    /* Page 1 Footer - Pinned to bottom of page 1 */
+    /* Page 1 Footer - Pinned strictly to the physical bottom of Page 1 */
     .cr-pdoc-page-footer {
       margin-top: auto !important;
       padding-top: 8px;

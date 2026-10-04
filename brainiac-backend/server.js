@@ -18,7 +18,7 @@ const handleAiImprove = async (req, res) => {
   let aiText = "";
 
   const systemMessage =
-    "You are a deeply warm, compassionate, loving, and supportive neuroscience-informed wellness companion. Always speak in a gentle, feel-good, empathetic tone that makes the user feel truly cared for, validated, and safe. Never use emojis or markdown asterisks. Directly weave the user's specific context and emotions into the rituals. Provide EXACTLY 5 short sections. Each section must be strictly 1 to 2 short sentences only (maximum 20 to 30 words per section). Format with - bullet. Sections: Core Neural Insight:, Morning Mindful Ritual:, Daytime Flow & Reset:, Sensory Grounding Pause:, Evening Wind-Down & Deep Rest:.";
+    "You are a deeply warm, compassionate, loving, and supportive neuroscience-informed wellness companion. Always speak in a gentle, feel-good, empathetic tone that makes the user feel truly cared for, validated, and safe. Never use emojis or markdown asterisks. Directly weave the user's specific context and emotions into the rituals. Do NOT include conversational greetings, preambles, or conclusions outside the 5 sections. Start directly with 'Core Neural Insight:'. Provide EXACTLY 5 distinct sections. Under EACH section heading, write EXACTLY ONE single, cohesive, continuous paragraph (3 to 4 lines, around 45 to 60 words, consisting of 2 to 3 soothing sentences). Do NOT output multiple paragraphs or bullet lists under a single section. Sections: Core Neural Insight:, Morning Mindful Ritual:, Daytime Flow & Reset:, Sensory Grounding Pause:, Evening Wind-Down & Deep Rest:.";
 
   // 1. Google Gemini 2.5 Flash (Ultra-Fast ~300ms, deeply personalized)
   const geminiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
@@ -42,12 +42,12 @@ const handleAiImprove = async (req, res) => {
             },
             contents: [
               {
-                parts: [{ text: prompt || `User is experiencing: "${userInput}". Nurturing brain region: ${regionName}, focus: ${focus}. Provide EXACTLY 5 short sections (1 to 2 short sentences each).` }]
+                parts: [{ text: prompt || `User is experiencing: "${userInput}". Nurturing brain region: ${regionName}, focus: ${focus}. Provide EXACTLY 5 sections, with each section being ONE single continuous paragraph of 3 to 4 lines.` }]
               }
             ],
             generationConfig: {
               temperature: 0.7,
-              maxOutputTokens: 450,
+              maxOutputTokens: 650,
               thinkingConfig: { thinkingBudget: 0 }
             }
           })
@@ -137,6 +137,9 @@ const handleAiImprove = async (req, res) => {
 
   // Clean formatting: strip markdown asterisks and standardize spacing cleanly
   aiText = aiText.replace(/\*\*/g, "");
+  if (aiText.includes("Core Neural Insight:")) {
+    aiText = aiText.substring(aiText.indexOf("Core Neural Insight:"));
+  }
   aiText = aiText.replace(
     /(Core Neural Insight:|Morning Mindful Rituals?:|Daytime Flow & (?:Energy|Reset):|Sensory Grounding Pause:|Evening Wind-Down & Deep Rest:)/gi,
     "\n\n$1\n"
@@ -156,23 +159,23 @@ app.get("/api/health", (req, res) => res.json({ status: "ok" }));
 function generateCarePlan(regionName = "Brain Region", focus = "Calm & Emotional Balance", context = "") {
   const userSnippet =
     context && context.trim()
-      ? `In honoring what you shared ("${context.trim().slice(0, 80)}..."), your nervous system is simply asking for gentler pacing.`
-      : `Nurturing your ${regionName} begins with honoring how much you carry and giving your mind permission to soften.`;
+      ? `In honoring what you shared ("${context.trim().slice(0, 90)}..."), your nervous system is simply calling for gentler pacing, spaciousness, and soothing reassurance.`
+      : `Nurturing your ${regionName} begins with honoring how much you carry and giving your mind wholehearted permission to soften and rest.`;
 
   return `Core Neural Insight:
-- ${userSnippet} Prioritizing ${focus} lovingly restores your natural inner ease.
+${userSnippet} Prioritizing ${focus} lovingly creates the safe internal space your brain needs to restore natural inner ease, emotional stability, and clear, joyful energy.
 
 Morning Mindful Ritual:
-- Begin your morning with 5 slow, comforting breaths and a warm glass of water in peaceful stillness.
+Begin your morning with 5 slow, comforting breaths before leaving bed, bringing to mind one kind word to gently carry with you throughout the day ahead. Enjoy a warm glass of water in peaceful stillness near a window, letting soft natural light gently awaken your frontal pathways without the rush of screens.
 
 Daytime Flow & Reset:
-- Take regular micro-pauses throughout your day, dropping your shoulders and releasing tension with an easy exhale.
+Take regular micro-pauses throughout your day to gently drop your shoulders, unclamp your jaw, and release built-up tension with an easy, extended exhale. Whenever your mind feels crowded, step into fresh air for two quiet minutes to reconnect with your natural rhythm.
 
 Sensory Grounding Pause:
-- Whenever you feel weary, step near fresh air or enjoy a warm tea to gently ground your senses.
+Whenever you notice fatigue or mental overload setting in, pause for two minutes with a cup of warm tea or step into fresh air to lovingly reground your senses. Allow the gentle warmth and grounding physical sensations to soothe your nervous system.
 
 Evening Wind-Down & Deep Rest:
-- Create a cozy, dimly lit sanctuary 30 minutes before bedtime, drifting into deep, restorative healing sleep.`;
+Create a cozy, dimly lit sanctuary 45 minutes before bedtime, closing demanding tabs and letting warm lighting signal complete safety to your nervous system. Reflect on three quiet, comforting moments you appreciate from today, allowing your body to soften into deep, restorative, and healing sleep.`;
 }
 
 const PORT = process.env.PORT || 5000;

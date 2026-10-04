@@ -105,26 +105,26 @@ Target Focus: ${selectedFocus}
 User's Personal Thoughts & What They Are Experiencing: "${userInput}"
 
 CRITICAL RULES:
-1. Provide EXACTLY 5 sections.
-2. Brevity is vital: Each section MUST be very short (strictly 1 to 2 short sentences only, around 20 to 30 words total per section). Do NOT write long paragraphs.
+1. Provide EXACTLY 5 distinct sections.
+2. Under EACH section header, write EXACTLY ONE single, continuous paragraph (3 to 4 lines / 45 to 60 words, consisting of 2 to 3 comforting, cohesive sentences). Do NOT output multiple paragraphs or separate bullet points under a single section.
 3. Tone: Warm, soothing, feel-good, gentle, and comforting. Never clinical or overwhelming.
 4. Formatting: Do NOT use emojis. Do NOT use markdown bold asterisks.
-5. Structure: Strictly format your response into these exact 5 sections with clean dash bullet points (- ):
+5. Structure: Strictly format your response into these exact 5 sections:
 
 Core Neural Insight:
-- (1 to 2 short, comforting sentences on what their ${region.name} is experiencing)
+(One single paragraph of 3 to 4 lines connecting their feelings with their ${region.name} and how giving their mind permission to soften brings calm and emotional balance.)
 
 Morning Mindful Ritual:
-- (1 to 2 short sentences on a gentle morning practice)
+(One single paragraph of 3 to 4 lines describing a morning breath intention and a nourishing sensory awakening like warm hydration or soft daylight.)
 
 Daytime Flow & Reset:
-- (1 to 2 short sentences on a simple midday reset to ease tension)
+(One single paragraph of 3 to 4 lines describing a midday pause to unhurry thoughts, soften shoulders, and release tension.)
 
 Sensory Grounding Pause:
-- (1 to 2 short sentences on an afternoon sensory or breathing pause)
+(One single paragraph of 3 to 4 lines describing an afternoon sensory pause to reconnect with fresh air or mindful warmth to ease fatigue.)
 
 Evening Wind-Down & Deep Rest:
-- (1 to 2 short sentences on a cozy nighttime ritual for restorative sleep)
+(One single paragraph of 3 to 4 lines describing a cozy lighting dimming routine and peaceful gratitude reflection for deep, healing sleep.)
 `;
 
       let aiText = "";
@@ -159,6 +159,9 @@ Evening Wind-Down & Deep Rest:
 
       /* ===== FORCE CLEAN STRUCTURE ===== */
       aiText = aiText.replace(/\*\*/g, "");
+      if (aiText.includes("Core Neural Insight:")) {
+        aiText = aiText.substring(aiText.indexOf("Core Neural Insight:"));
+      }
       aiText = aiText.replace(/(Core Neural Insight:|Morning Mindful Rituals?:|Daytime Flow & (?:Energy|Reset):|Sensory Grounding Pause:|Evening Wind-Down & Deep Rest:)/gi, "\n\n$1\n");
       aiText = aiText.replace(/ - /g, "\n- ");
       aiText = aiText.replace(/\n\s*\n\s*-/g, "\n- ");
@@ -222,23 +225,23 @@ Evening Wind-Down & Deep Rest:
 
   const generateClientCarePlan = (regionName, focus, context) => {
     const userSnippet = context && context.trim()
-      ? `In honoring what you shared ("${context.trim().slice(0, 80)}..."), your nervous system is simply asking for gentler pacing.`
-      : `Nurturing your ${regionName} begins with honoring how much you carry and giving your mind permission to soften.`;
+      ? `In honoring what you shared ("${context.trim().slice(0, 90)}..."), your nervous system is simply calling for gentler pacing, spaciousness, and soothing reassurance.`
+      : `Nurturing your ${regionName} begins with honoring how much you carry and giving your mind wholehearted permission to soften and rest.`;
 
     return `Core Neural Insight:
-- ${userSnippet} Prioritizing ${focus} lovingly restores your natural inner ease.
+${userSnippet} Prioritizing ${focus} lovingly creates the safe internal space your brain needs to restore natural inner ease, emotional stability, and clear, joyful energy.
 
 Morning Mindful Ritual:
-- Begin your morning with 5 slow, comforting breaths and a warm glass of water in peaceful stillness.
+Begin your morning with 5 slow, comforting breaths before leaving bed, bringing to mind one kind word to gently carry with you throughout the day ahead. Enjoy a warm glass of water in peaceful stillness near a window, letting soft natural light gently awaken your frontal pathways without the rush of screens.
 
 Daytime Flow & Reset:
-- Take regular micro-pauses throughout your day, dropping your shoulders and releasing tension with an easy exhale.
+Take regular micro-pauses throughout your day to gently drop your shoulders, unclamp your jaw, and release built-up tension with an easy, extended exhale. Whenever your mind feels crowded, step into fresh air for two quiet minutes to reconnect with your natural rhythm.
 
 Sensory Grounding Pause:
-- Whenever you feel weary, step near fresh air or enjoy a warm tea to gently ground your senses.
+Whenever you notice fatigue or mental overload setting in, pause for two minutes with a cup of warm tea or step into fresh air to lovingly reground your senses. Allow the gentle warmth and grounding physical sensations to soothe your nervous system.
 
 Evening Wind-Down & Deep Rest:
-- Create a cozy, dimly lit sanctuary 30 minutes before bedtime, drifting into deep, restorative healing sleep.`;
+Create a cozy, dimly lit sanctuary 45 minutes before bedtime, closing demanding tabs and letting warm lighting signal complete safety to your nervous system. Reflect on three quiet, comforting moments you appreciate from today, allowing your body to soften into deep, restorative, and healing sleep.`;
   };
 
   return (
@@ -392,7 +395,9 @@ Evening Wind-Down & Deep Rest:
 
               {/* Focus Dimension Selector */}
               <div className="ip-form-group">
-                <label className="ip-label">Primary Wellness Focus</label>
+                <div className="ip-label-row">
+                  <label className="ip-label">Primary Wellness Focus</label>
+                </div>
                 <div className="ip-focus-grid">
                   {focusOptions.map((opt) => (
                     <button
@@ -915,6 +920,7 @@ const baseStyles = `
     letter-spacing: 0.08em;
     color: rgba(255, 255, 255, 0.55);
     margin-bottom: 0;
+    padding-left: 2px;
   }
 
   .ip-char-counter {

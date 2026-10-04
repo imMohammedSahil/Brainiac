@@ -10,15 +10,15 @@ export default function SmoothScroll({ children }) {
   const location = useLocation();
 
   useEffect(() => {
-    // Instantiate Lenis with heavy, weighted cinematic inertia and smooth luxury damping
+    // Instantiate Lenis with ultra-heavy cinematic inertia and deep viscous damping
     const lenis = new Lenis({
-      lerp: 0.045, // Lower lerp factor = heavy, high-mass cinematic glide
-      duration: 1.4,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      lerp: 0.022, // Ultra-high mass inertia (heavy viscous glide)
+      duration: 3.0, // Long, dramatic cinematic glide & deceleration
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -12 * t)),
       orientation: "vertical",
       gestureOrientation: "vertical",
       smoothWheel: true,
-      wheelMultiplier: 0.85, // Heavy resistance with deliberate, weighted response
+      wheelMultiplier: 0.55, // Strong physical resistance requiring deliberate input
       touchMultiplier: 1.0,
       infinite: false,
       autoResize: true,
