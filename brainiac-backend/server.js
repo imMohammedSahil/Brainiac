@@ -13,7 +13,7 @@ app.use(express.json());
 
 // ZERO-CACHE: Every request produces fresh, live, personalized AI insights
 
-app.post("/ai-improve", async (req, res) => {
+const handleAiImprove = async (req, res) => {
   const { prompt, regionName, focus, userInput } = req.body;
   const safeInput = (userInput || "").slice(0, 1000).trim();
   let aiText = "";
@@ -98,7 +98,12 @@ app.post("/ai-improve", async (req, res) => {
   aiText = aiText.replace(/\n{3,}/g, "\n\n");
 
   res.json({ result: aiText.trim(), cached: false });
-});
+};
+
+app.post("/ai-improve", handleAiImprove);
+app.post("/api/ai-improve", handleAiImprove);
+app.get("/health", (req, res) => res.json({ status: "ok" }));
+app.get("/api/health", (req, res) => res.json({ status: "ok" }));
 
 function generateCarePlan(regionName = "Brain Region", focus = "Calm & Emotional Balance", context = "") {
   const userSnippet = context && context.trim() 
@@ -122,6 +127,7 @@ Evening Wind-Down & Deep Rest:
 - Reflect on three gentle moments you appreciate today, drifting into deep, restorative, healing sleep.`;
 }
 
-app.listen(5000, () => {
-  console.log("✅ Live AI Care Server running on http://localhost:5000 (Zero-Cache Mode)");
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`✅ Live AI Care Server running on port ${PORT} (Zero-Cache Mode)`);
 });
