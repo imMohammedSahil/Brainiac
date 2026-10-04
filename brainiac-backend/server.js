@@ -14,15 +14,84 @@ app.use(express.json());
 // ZERO-CACHE: Every request produces fresh, live, personalized AI insights
 
 const handleAiImprove = async (req, res) => {
-  const { prompt, regionName, focus, userInput } = req.body;
-  const safeInput = (userInput || "").slice(0, 1000).trim();
+  const { prompt, regionName, focus, userInput } = req.body || {};
   let aiText = "";
 
   const systemMessage =
     "You are a deeply warm, compassionate, loving, and supportive neuroscience-informed wellness companion. Always speak in a gentle, feel-good, empathetic tone that makes the user feel truly cared for, validated, and safe. Never use emojis. Provide practical, nourishing, feel-good rituals divided clearly into 4 sections: Core Neural Insight, Morning Mindful Rituals, Daytime Flow & Energy, and Evening Wind-Down & Deep Rest.";
 
-  // 1. Try Hugging Face if key is present
-  if (process.env.HF_API_KEY && !process.env.HF_API_KEY.includes("your_hugging_face")) {
+  // 1. Google Gemini Flash (Fastest, warmest, zero cold starts)
+  const geminiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
+  if (geminiKey && !geminiKey.includes("your_gemini")) {
+    try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 6000);
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`;
+      
+      const response = await fetch(url, {
+        method: "POST",
+        signal: controller.signal,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          system_instruction: {
+            parts: [{ text: systemMessage }]
+          },
+          contents: [
+            {
+              parts: [{ text: prompt }]
+            }
+          ],
+          generationConfig: {
+            temperature: 0.7,
+            maxOutputTokens: 500,
+          }
+        })
+      });
+      clearTimeout(timeout);
+
+      if (response.ok) {
+        const data = await response.json();
+        aiText = data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
+      }
+    } catch (geminiErr) {
+      console.warn("Gemini Flash notice:", geminiErr.message);
+    }
+  }
+
+  // 2. Groq / Hugging Face Fallback if API keys present
+  const groqKey = process.env.GROQ_API_KEY;
+  if (!aiText && groqKey) {
+    try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 5000);
+      const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+        method: "POST",
+        signal: controller.signal,
+        headers: {
+          Authorization: `Bearer ${groqKey}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          model: "llama-3.3-70b-versatile",
+          messages: [
+            { role: "system", content: systemMessage },
+            { role: "user", content: prompt },
+          ],
+          temperature: 0.7,
+        }),
+      });
+      clearTimeout(timeout);
+      if (response.ok) {
+        const data = await response.json();
+        aiText = data?.choices?.[0]?.message?.content || "";
+      }
+    } catch (groqErr) {
+      console.warn("Groq notice:", groqErr.message);
+    }
+  }
+
+  const hfKey = process.env.HF_API_KEY;
+  if (!aiText && hfKey && !hfKey.includes("your_hugging_face")) {
     try {
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), 6000);
@@ -30,7 +99,7 @@ const handleAiImprove = async (req, res) => {
         method: "POST",
         signal: controller.signal,
         headers: {
-          Authorization: `Bearer ${process.env.HF_API_KEY}`,
+          Authorization: `Bearer ${hfKey}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
@@ -54,7 +123,7 @@ const handleAiImprove = async (req, res) => {
     }
   }
 
-  // 2. High-Quality Free OpenAI-Compatible LLM Tier (Pollinations)
+  // 3. High-Quality Free OpenAI-Compatible LLM Tier (Pollinations)
   if (!aiText || aiText.trim().length === 0) {
     try {
       const controller = new AbortController();
@@ -85,14 +154,17 @@ const handleAiImprove = async (req, res) => {
     }
   }
 
-  // 3. Intelligent Personalized Synthesizer Fallback if offline / timeout
+  // 4. Intelligent Personalized Synthesizer Fallback if offline / timeout
   if (!aiText || aiText.trim().length === 0 || aiText === "No AI response.") {
     aiText = generateCarePlan(regionName, focus, userInput);
   }
 
   // Clean formatting: strip markdown asterisks and standardize spacing cleanly
   aiText = aiText.replace(/\*\*/g, "");
-  aiText = aiText.replace(/(Core Neural Insight:|Morning Mindful Rituals?:|Daytime Flow & Energy:|Evening Wind-Down & Deep Rest:)/gi, "\n\n$1\n");
+  aiText = aiText.replace(
+    /(Core Neural Insight:|Morning Mindful Rituals?:|Daytime Flow & Energy:|Evening Wind-Down & Deep Rest:)/gi,
+    "\n\n$1\n"
+  );
   aiText = aiText.replace(/ - /g, "\n- ");
   aiText = aiText.replace(/\n\s*\n\s*-/g, "\n- ");
   aiText = aiText.replace(/\n{3,}/g, "\n\n");
