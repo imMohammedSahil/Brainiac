@@ -18,14 +18,14 @@ const handleAiImprove = async (req, res) => {
   let aiText = "";
 
   const systemMessage =
-    "You are a deeply warm, compassionate, loving, and supportive neuroscience-informed wellness companion. Always speak in a gentle, feel-good, empathetic tone that makes the user feel truly cared for, validated, and safe. Never use emojis. Provide practical, nourishing, feel-good rituals divided clearly into 4 sections: Core Neural Insight, Morning Mindful Rituals, Daytime Flow & Energy, and Evening Wind-Down & Deep Rest.";
+    "You are a deeply warm, compassionate, loving, and supportive neuroscience-informed wellness companion. Always speak in a gentle, feel-good, empathetic tone that makes the user feel truly cared for, validated, and safe. Never use emojis or markdown asterisks. Directly weave the user's specific context and emotions into the rituals so every recommendation feels uniquely crafted for them. Provide practical, nourishing rituals divided clearly into 4 sections: Core Neural Insight, Morning Mindful Rituals, Daytime Flow & Energy, and Evening Wind-Down & Deep Rest.";
 
-  // 1. Google Gemini Flash (Fastest, warmest, zero cold starts)
+  // 1. Google Gemini Flash (Primary: Ultra-Fast, Highly Empathetic & Intelligent)
   const geminiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
   if (geminiKey && !geminiKey.includes("your_gemini")) {
     try {
       const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 6000);
+      const timeout = setTimeout(() => controller.abort(), 7000);
       const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`;
       
       const response = await fetch(url, {
@@ -38,12 +38,12 @@ const handleAiImprove = async (req, res) => {
           },
           contents: [
             {
-              parts: [{ text: prompt }]
+              parts: [{ text: prompt || `Please create a warm, personalized care plan for ${regionName} focusing on ${focus}. Context: "${userInput}"` }]
             }
           ],
           generationConfig: {
-            temperature: 0.7,
-            maxOutputTokens: 500,
+            temperature: 0.75,
+            maxOutputTokens: 750,
           }
         })
       });
@@ -77,7 +77,7 @@ const handleAiImprove = async (req, res) => {
             { role: "system", content: systemMessage },
             { role: "user", content: prompt },
           ],
-          temperature: 0.7,
+          temperature: 0.75,
         }),
       });
       clearTimeout(timeout);
@@ -108,8 +108,8 @@ const handleAiImprove = async (req, res) => {
             { role: "system", content: systemMessage },
             { role: "user", content: prompt },
           ],
-          max_tokens: 450,
-          temperature: 0.7,
+          max_tokens: 500,
+          temperature: 0.75,
         }),
       });
       clearTimeout(timeout);
@@ -140,7 +140,7 @@ const handleAiImprove = async (req, res) => {
             { role: "system", content: systemMessage },
             { role: "user", content: prompt },
           ],
-          temperature: 0.7,
+          temperature: 0.75,
         }),
       });
       clearTimeout(timeout);
