@@ -20,41 +20,50 @@ const handleAiImprove = async (req, res) => {
   const systemMessage =
     "You are a deeply warm, compassionate, loving, and supportive neuroscience-informed wellness companion. Always speak in a gentle, feel-good, empathetic tone that makes the user feel truly cared for, validated, and safe. Never use emojis or markdown asterisks. Directly weave the user's specific context and emotions into the rituals so every recommendation feels uniquely crafted for them. Provide practical, nourishing rituals divided clearly into 4 sections: Core Neural Insight, Morning Mindful Rituals, Daytime Flow & Energy, and Evening Wind-Down & Deep Rest.";
 
-  // 1. Google Gemini Flash (Primary: Ultra-Fast, Highly Empathetic & Intelligent)
+  // 1. Google Gemini 2.5 Flash (Ultra-Fast ~300ms, deeply personalized)
   const geminiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
   if (geminiKey && !geminiKey.includes("your_gemini")) {
-    try {
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 7000);
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`;
-      
-      const response = await fetch(url, {
-        method: "POST",
-        signal: controller.signal,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          system_instruction: {
-            parts: [{ text: systemMessage }]
-          },
-          contents: [
-            {
-              parts: [{ text: prompt || `Please create a warm, personalized care plan for ${regionName} focusing on ${focus}. Context: "${userInput}"` }]
-            }
-          ],
-          generationConfig: {
-            temperature: 0.75,
-            maxOutputTokens: 750,
-          }
-        })
-      });
-      clearTimeout(timeout);
+    const modelsToTry = ["gemini-2.5-flash", "gemini-flash-latest", "gemini-2.5-flash-lite"];
 
-      if (response.ok) {
-        const data = await response.json();
-        aiText = data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
+    for (const model of modelsToTry) {
+      if (aiText && aiText.trim().length > 0) break;
+      try {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 8000);
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${geminiKey}`;
+        
+        const response = await fetch(url, {
+          method: "POST",
+          signal: controller.signal,
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            system_instruction: {
+              parts: [{ text: systemMessage }]
+            },
+            contents: [
+              {
+                parts: [{ text: prompt || `User is experiencing: "${userInput}". Nurturing brain region: ${regionName}, focus: ${focus}. Create 4 sections: Core Neural Insight, Morning Mindful Rituals, Daytime Flow & Energy, Evening Wind-Down & Deep Rest.` }]
+              }
+            ],
+            generationConfig: {
+              temperature: 0.75,
+              maxOutputTokens: 800,
+              thinkingConfig: { thinkingBudget: 0 }
+            }
+          })
+        });
+        clearTimeout(timeout);
+
+        if (response.ok) {
+          const data = await response.json();
+          aiText = data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
+        } else {
+          const errData = await response.json().catch(() => ({}));
+          console.warn(`Gemini (${model}) API error:`, errData);
+        }
+      } catch (geminiErr) {
+        console.warn(`Gemini (${model}) notice:`, geminiErr.message);
       }
-    } catch (geminiErr) {
-      console.warn("Gemini Flash notice:", geminiErr.message);
     }
   }
 
@@ -87,39 +96,6 @@ const handleAiImprove = async (req, res) => {
       }
     } catch (groqErr) {
       console.warn("Groq notice:", groqErr.message);
-    }
-  }
-
-  const hfKey = process.env.HF_API_KEY;
-  if (!aiText && hfKey && !hfKey.includes("your_hugging_face")) {
-    try {
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 6000);
-      const response = await fetch("https://router.huggingface.co/v1/chat/completions", {
-        method: "POST",
-        signal: controller.signal,
-        headers: {
-          Authorization: `Bearer ${hfKey}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          model: "meta-llama/Meta-Llama-3-8B-Instruct",
-          messages: [
-            { role: "system", content: systemMessage },
-            { role: "user", content: prompt },
-          ],
-          max_tokens: 500,
-          temperature: 0.75,
-        }),
-      });
-      clearTimeout(timeout);
-
-      if (response.ok) {
-        const data = await response.json();
-        aiText = data?.choices?.[0]?.message?.content || "";
-      }
-    } catch (hfErr) {
-      console.warn("HF notice:", hfErr.message);
     }
   }
 
