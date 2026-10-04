@@ -226,17 +226,17 @@ The 3D neural visualization engine is built on Three.js and React Three Fiber, d
 
 ```mermaid
 flowchart TD
-    A[GLTF Binary Asset Stream /models/colored-brain.glb] --> B[useGLTF Asset Cache]
-    B --> C[Recursive Scene Graph Traversal]
-    C --> D[Material Deep-Cloning per Mesh]
-    D --> E[Store Original RGB in userData.originalColor]
-    E --> F[Render 60 FPS Canvas with Ambient & Directional Lighting]
+    A["GLTF Binary Asset Stream /models/colored-brain.glb"] --> B["useGLTF Asset Cache"]
+    B --> C["Recursive Scene Graph Traversal"]
+    C --> D["Material Deep-Cloning per Mesh"]
+    D --> E["Store Original RGB in userData.originalColor"]
+    E --> F["Render 60 FPS Canvas with Ambient & Directional Lighting"]
     
-    G[User Pointer Interaction] --> H[Three.js GPU Raycaster Intersection]
-    H --> I[Stop Event Propagation e.stopPropagation]
-    I --> J[Lookup Mesh ID in meshRegionMap]
-    J --> K[Update Mesh Emissive Intensity & Dispatch Region State]
-    K --> L[Mount Contextual HUD Overlay]
+    G["User Pointer Interaction"] --> H["Three.js GPU Raycaster Intersection"]
+    H --> I["Stop Event Propagation e.stopPropagation"]
+    I --> J["Lookup Mesh ID in meshRegionMap"]
+    J --> K["Update Mesh Emissive Intensity & Dispatch Region State"]
+    K --> L["Mount Contextual HUD Overlay"]
 ```
 
 ### Graphics Architecture Details
@@ -282,11 +282,11 @@ To eliminate model variance and formatting inconsistencies, raw model completion
 
 ```mermaid
 flowchart LR
-    A[Raw Model Output Stream] --> B[Strip Leading Conversational Salutations]
-    B --> C[Normalize Heading Syntax /###\s+/]
-    C --> D[Standardize Bullet Lists /\n\s*-\s+/ -> \n- ]
-    D --> E[Collapse Redundant Whitespace /\n{3,}/ -> \n\n]
-    E --> F[Render Clean Markdown in Protocol Modal]
+    A["Raw Model Output Stream"] --> B["Strip Leading Conversational Salutations"]
+    B --> C["Normalize Heading Syntax"]
+    C --> D["Standardize Bullet Lists"]
+    D --> E["Collapse Redundant Whitespace"]
+    E --> F["Render Clean Protocol in Care Studio"]
 ```
 
 ---
@@ -297,11 +297,11 @@ Brainiac incorporates a Web Audio sound generation system that delivers soothing
 
 ```mermaid
 flowchart LR
-    A[Web Audio AudioContext] --> B[Dual Oscillators Sine & Triangle Waves]
-    B --> C[BiquadFilter Low-Pass Filter]
-    C --> D[StereoPanner Subtle Spatial Drift]
-    D --> E[GainNode Master Volume Envelope]
-    E --> F[Hardware Audio Destination]
+    A["Web Audio AudioContext"] --> B["Dual Oscillators (Sine & Triangle Waves)"]
+    B --> C["BiquadFilter Low-Pass Filter"]
+    C --> D["StereoPanner Subtle Spatial Drift"]
+    D --> E["GainNode Master Volume Envelope"]
+    E --> F["Hardware Audio Destination"]
 ```
 
 - **Zero-Asset Footprint:** Synthesizes generative ambient soundscapes directly using browser `AudioContext` oscillators.
