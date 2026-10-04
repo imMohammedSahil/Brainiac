@@ -1,10 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
 import { useSoundSanctuary } from "../context/SoundSanctuaryContext";
 
 export default function AudioCursorPrompt() {
-  const { audioPlaying, audioPaused, resumeAudio, toggleAudio } = useSoundSanctuary();
+  const location = useLocation();
+  const { resumeAudio } = useSoundSanctuary();
+  
+  // Track if clicked in the current session/pageview
+  const [hasClicked, setHasClicked] = useState(false);
   const [visible, setVisible] = useState(false);
-  const [mounted, setMounted] = useState(true);
   const [hasMoved, setHasMoved] = useState(false);
 
   const posRef = useRef({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
@@ -12,21 +16,11 @@ export default function AudioCursorPrompt() {
   const pillRef = useRef(null);
   const animFrameRef = useRef(null);
 
-  useEffect(() => {
-    // If audio is already active and not paused, do not show
-    if (audioPlaying && !audioPaused) {
-      const alreadyClicked = sessionStorage.getItem("brainiac_audio_unlocked");
-      if (alreadyClicked) {
-        setMounted(false);
-        return;
-      }
-    }
+  // ONLY render on homepage ("/")
+  const isHomepage = location.pathname === "/";
 
-    // Check session storage
-    if (sessionStorage.getItem("brainiac_audio_unlocked") === "true") {
-      setMounted(false);
-      return;
-    }
+  useEffect(() => {
+    if (!isHomepage || hasClicked) return;
 
     // Smooth Lerp animation loop
     const updatePosition = () => {
@@ -51,9 +45,8 @@ export default function AudioCursorPrompt() {
     };
 
     const handleGlobalClick = () => {
-      sessionStorage.setItem("brainiac_audio_unlocked", "true");
+      setHasClicked(true);
       setVisible(false);
-      setTimeout(() => setMounted(false), 400);
 
       // Trigger audio play
       try {
@@ -75,9 +68,10 @@ export default function AudioCursorPrompt() {
         cancelAnimationFrame(animFrameRef.current);
       }
     };
-  }, [audioPlaying, audioPaused, resumeAudio, hasMoved]);
+  }, [isHomepage, hasClicked, resumeAudio, hasMoved]);
 
-  if (!mounted) return null;
+  // If not on homepage or already clicked, don't render
+  if (!isHomepage || hasClicked) return null;
 
   return (
     <>
@@ -115,7 +109,6 @@ export default function AudioCursorPrompt() {
 
         .audio-cursor-pill.is-visible {
           opacity: 1;
-          transform: translate3d(var(--x, 0), var(--y, 0), 0) scale(1);
         }
 
         .audio-cursor-dot {
