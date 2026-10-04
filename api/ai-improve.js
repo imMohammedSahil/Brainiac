@@ -24,7 +24,7 @@ export default async function handler(req, res) {
   let aiText = "";
 
   const systemMessage =
-    "You are a deeply warm, compassionate, loving, and supportive neuroscience-informed wellness companion. Always speak in a gentle, feel-good, empathetic tone that makes the user feel truly cared for, validated, and safe. Never use emojis or markdown asterisks. Directly weave the user's specific context and emotions into the rituals. Keep each of the 4 sections concise and focused to exactly ONE gentle, soothing paragraph (2 to 3 comforting sentences each). Provide 4 sections: Core Neural Insight, Morning Mindful Ritual, Daytime Flow & Energy, and Evening Wind-Down & Deep Rest.";
+    "You are a deeply warm, compassionate, loving, and supportive neuroscience-informed wellness companion. Always speak in a gentle, feel-good, empathetic tone that makes the user feel truly cared for, validated, and safe. Never use emojis or markdown asterisks. Directly weave the user's specific context and emotions into the rituals. Provide EXACTLY 5 short sections. Each section must be strictly 1 to 2 short sentences only (maximum 20 to 30 words per section). Format with - bullet. Sections: Core Neural Insight:, Morning Mindful Ritual:, Daytime Flow & Reset:, Sensory Grounding Pause:, Evening Wind-Down & Deep Rest:.";
 
   // 1. Google Gemini 2.5 Flash (Ultra-Fast ~300ms, deeply personalized)
   const geminiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
@@ -48,12 +48,12 @@ export default async function handler(req, res) {
             },
             contents: [
               {
-                parts: [{ text: prompt || `User is experiencing: "${userInput}". Nurturing brain region: ${regionName}, focus: ${focus}. Provide exactly ONE concise, comforting paragraph per section.` }]
+                parts: [{ text: prompt || `User is experiencing: "${userInput}". Nurturing brain region: ${regionName}, focus: ${focus}. Provide EXACTLY 5 short sections (1 to 2 short sentences each).` }]
               }
             ],
             generationConfig: {
               temperature: 0.7,
-              maxOutputTokens: 550,
+              maxOutputTokens: 450,
               thinkingConfig: { thinkingBudget: 0 }
             }
           })
@@ -144,7 +144,7 @@ export default async function handler(req, res) {
   // Clean formatting: strip markdown asterisks and standardize spacing cleanly
   aiText = aiText.replace(/\*\*/g, "");
   aiText = aiText.replace(
-    /(Core Neural Insight:|Morning Mindful Rituals?:|Daytime Flow & Energy:|Evening Wind-Down & Deep Rest:)/gi,
+    /(Core Neural Insight:|Morning Mindful Rituals?:|Daytime Flow & (?:Energy|Reset):|Sensory Grounding Pause:|Evening Wind-Down & Deep Rest:)/gi,
     "\n\n$1\n"
   );
   aiText = aiText.replace(/ - /g, "\n- ");
@@ -157,18 +157,21 @@ export default async function handler(req, res) {
 function generateCarePlan(regionName = "Brain Region", focus = "Calm & Emotional Balance", context = "") {
   const userSnippet =
     context && context.trim()
-      ? `In honoring what you shared ("${context.trim().slice(0, 80)}..."), your nervous system is simply calling for gentler pacing, spaciousness, and soothing reassurance.`
-      : `Nurturing your ${regionName} begins with honoring how much you carry and giving your mind permission to soften and rest.`;
+      ? `In honoring what you shared ("${context.trim().slice(0, 80)}..."), your nervous system is simply asking for gentler pacing.`
+      : `Nurturing your ${regionName} begins with honoring how much you carry and giving your mind permission to soften.`;
 
   return `Core Neural Insight:
-- ${userSnippet} Prioritizing ${focus} lovingly restores your natural inner ease, emotional stability, and clear, joyful energy.
+- ${userSnippet} Prioritizing ${focus} lovingly restores your natural inner ease.
 
 Morning Mindful Ritual:
-- Begin your morning with 5 slow, comforting breaths, enjoying a warm glass of water in peaceful stillness before engaging with any screens.
+- Begin your morning with 5 slow, comforting breaths and a warm glass of water in peaceful stillness.
 
-Daytime Flow & Energy:
-- Give yourself permission to take regular micro-pauses throughout the day, gently dropping your shoulders and releasing tension with an easy exhale.
+Daytime Flow & Reset:
+- Take regular micro-pauses throughout your day, dropping your shoulders and releasing tension with an easy exhale.
+
+Sensory Grounding Pause:
+- Whenever you feel weary, step near fresh air or enjoy a warm tea to gently ground your senses.
 
 Evening Wind-Down & Deep Rest:
-- Create a cozy, dimly lit sanctuary 45 minutes before bedtime to welcome soothing calmness, drifting into deep, restorative, healing sleep.`;
+- Create a cozy, dimly lit sanctuary 30 minutes before bedtime, drifting into deep, restorative healing sleep.`;
 }

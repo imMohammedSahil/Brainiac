@@ -104,24 +104,27 @@ Craft an intensely personalized, deeply comforting care plan tailored specifical
 Target Focus: ${selectedFocus}
 User's Personal Thoughts & What They Are Experiencing: "${userInput}"
 
-CRITICAL GUIDELINES:
-1. Deep Personalization & Brevity: Directly address the user's situation from what they shared ("${userInput}") in a concise, comforting way.
-2. Length Limit: Provide exactly ONE concise, gentle paragraph per section (2 to 3 soothing sentences). Do NOT output multiple long paragraphs or bloated lists.
-3. Tone: Warm, soothing, feel-good, gentle, and comforting. Never cold or clinical.
+CRITICAL RULES:
+1. Provide EXACTLY 5 sections.
+2. Brevity is vital: Each section MUST be very short (strictly 1 to 2 short sentences only, around 20 to 30 words total per section). Do NOT write long paragraphs.
+3. Tone: Warm, soothing, feel-good, gentle, and comforting. Never clinical or overwhelming.
 4. Formatting: Do NOT use emojis. Do NOT use markdown bold asterisks.
-5. Structure: Strictly format your response into these exact 4 sections with exactly ONE dash bullet (- ) per section:
+5. Structure: Strictly format your response into these exact 5 sections with clean dash bullet points (- ):
 
 Core Neural Insight:
-- (1 concise, validating paragraph on how their ${region.name} is responding and giving them permission to soften)
+- (1 to 2 short, comforting sentences on what their ${region.name} is experiencing)
 
 Morning Mindful Ritual:
-- (1 concise, gentle morning practice tailored to what they are experiencing)
+- (1 to 2 short sentences on a gentle morning practice)
 
-Daytime Flow & Energy:
-- (1 concise, loving daytime reset to maintain calm and release tension)
+Daytime Flow & Reset:
+- (1 to 2 short sentences on a simple midday reset to ease tension)
+
+Sensory Grounding Pause:
+- (1 to 2 short sentences on an afternoon sensory or breathing pause)
 
 Evening Wind-Down & Deep Rest:
-- (1 concise, cozy nighttime ritual for deep, restorative sleep)
+- (1 to 2 short sentences on a cozy nighttime ritual for restorative sleep)
 `;
 
       let aiText = "";
@@ -156,7 +159,7 @@ Evening Wind-Down & Deep Rest:
 
       /* ===== FORCE CLEAN STRUCTURE ===== */
       aiText = aiText.replace(/\*\*/g, "");
-      aiText = aiText.replace(/(Core Neural Insight:|Morning Mindful Rituals?:|Daytime Flow & Energy:|Evening Wind-Down & Deep Rest:)/gi, "\n\n$1\n");
+      aiText = aiText.replace(/(Core Neural Insight:|Morning Mindful Rituals?:|Daytime Flow & (?:Energy|Reset):|Sensory Grounding Pause:|Evening Wind-Down & Deep Rest:)/gi, "\n\n$1\n");
       aiText = aiText.replace(/ - /g, "\n- ");
       aiText = aiText.replace(/\n\s*\n\s*-/g, "\n- ");
       aiText = aiText.replace(/\n{3,}/g, "\n\n");
@@ -217,26 +220,25 @@ Evening Wind-Down & Deep Rest:
     }
   };
 
-  const generateClientCarePlan = (regionName, focus, context, tips = []) => {
-    const customHabits = tips && tips.length > 0
-      ? tips.slice(0, 2).map(t => `- ${t}`).join("\n")
-      : `- Dedicate a quiet, gentle moment to softly decompress.\n- Practice slow, comforting breathing to soothe and nurture your nervous system.`;
+  const generateClientCarePlan = (regionName, focus, context) => {
+    const userSnippet = context && context.trim()
+      ? `In honoring what you shared ("${context.trim().slice(0, 80)}..."), your nervous system is simply asking for gentler pacing.`
+      : `Nurturing your ${regionName} begins with honoring how much you carry and giving your mind permission to soften.`;
 
     return `Core Neural Insight:
-- Nurturing your ${regionName} begins with honoring how much you carry and giving your mind permission to soften and rest.
-- Prioritizing ${focus} lovingly restores your natural inner ease, emotional stability, and clear, joyful energy.
+- ${userSnippet} Prioritizing ${focus} lovingly restores your natural inner ease.
 
 Morning Mindful Ritual:
-- Begin your morning with 5 slow, comforting breaths, holding a kind and loving intention for your day.
-- Enjoy a warm glass of water in peaceful stillness before engaging with any screens or demanding tasks.
+- Begin your morning with 5 slow, comforting breaths and a warm glass of water in peaceful stillness.
 
-Daytime Flow & Energy:
-- Give yourself permission to pause regularly, gently dropping your shoulders and releasing tension with an easy exhale.
-${customHabits}
+Daytime Flow & Reset:
+- Take regular micro-pauses throughout your day, dropping your shoulders and releasing tension with an easy exhale.
+
+Sensory Grounding Pause:
+- Whenever you feel weary, step near fresh air or enjoy a warm tea to gently ground your senses.
 
 Evening Wind-Down & Deep Rest:
-- Create a cozy, dimly lit sanctuary 45 minutes before bedtime to welcome soothing calmness into your nervous system.
-- Reflect on three gentle moments you appreciate today, drifting into deep, restorative, healing sleep.`;
+- Create a cozy, dimly lit sanctuary 30 minutes before bedtime, drifting into deep, restorative healing sleep.`;
   };
 
   return (
