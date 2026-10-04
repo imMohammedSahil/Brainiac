@@ -1,12 +1,5 @@
 # Brainiac: Neuroscience-Inspired Cognitive Intelligence and 3D WebGL Neural Mapping Platform
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-brainiac--care.vercel.app-00df8f?style=for-the-badge&logo=vercel&logoColor=white)](https://brainiac-care.vercel.app)
-[![React 19](https://img.shields.io/badge/React-19.2-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
-[![Three.js](https://img.shields.io/badge/Three.js-WebGL-black?style=for-the-badge&logo=three.js&logoColor=white)](https://threejs.org/)
-[![Vite](https://img.shields.io/badge/Vite-8.3-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
-
-> **Live Deployment:** [https://brainiac-care.vercel.app](https://brainiac-care.vercel.app)
-
 Brainiac is a high-performance cognitive intelligence platform and spatial anatomical mapping system. It unifies multi-dimensional psychometric assessments, real-time 3D WebGL anatomical rendering, generative Large Language Model (LLM) inference, and an ambient auditory feedback engine to analyze human cognitive architectures and synthesize personalized neuro-optimization protocols.
 
 ---
