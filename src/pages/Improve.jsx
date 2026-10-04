@@ -130,7 +130,11 @@ Evening Wind-Down & Deep Rest:
       let aiText = "";
 
       try {
-        const response = await fetch("http://localhost:5000/ai-improve", {
+        const apiUrl = import.meta.env.VITE_BACKEND_URL
+          ? `${import.meta.env.VITE_BACKEND_URL.replace(/\/$/, "")}/ai-improve`
+          : "/api/ai-improve";
+
+        const response = await fetch(apiUrl, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
