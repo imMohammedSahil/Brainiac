@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import SmoothScroll from "./components/SmoothScroll";
 import { SoundSanctuaryProvider } from "./context/SoundSanctuaryContext";
+import AudioCursorPrompt from "./components/AudioCursorPrompt";
 import Intro from "./pages/Intro";
 import Questionnaire from "./components/Questionnaire";
 import Results from "./components/Results";
@@ -14,6 +15,7 @@ function App() {
   return (
     <Router>
       <SoundSanctuaryProvider>
+        <AudioCursorPrompt />
         <SmoothScroll>
           <Routes>
             <Route path="/" element={<Intro />} />
