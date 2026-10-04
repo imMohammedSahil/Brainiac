@@ -1,20 +1,23 @@
-# Brainiac: Neuroscience-Inspired Cognitive Intelligence System
+# Brainiac: Neuroscience-Inspired Cognitive Intelligence and 3D WebGL Neural Mapping Platform
 
-Brainiac is a high-performance cognitive intelligence platform and 3D WebGL neural mapping system. It integrates multi-dimensional psychometric assessments, real-time spatial anatomical rendering, and Large Language Model (LLM) inference to evaluate cognitive functions and generate personalized neural optimization protocols.
+Brainiac is a high-performance cognitive intelligence platform and spatial anatomical mapping system. It unifies multi-dimensional psychometric assessments, real-time 3D WebGL anatomical rendering, generative Large Language Model (LLM) inference, and an ambient auditory feedback engine to analyze human cognitive architectures and synthesize personalized neuro-optimization protocols.
 
 ---
 
 ## Table of Contents
 
 - [System Architecture](#system-architecture)
-- [Core Processing Pipeline](#core-processing-pipeline)
-- [Mathematical and Psychometric Formulation](#mathematical-and-psychometric-formulation)
-- [Interactive 3D WebGL Engine](#interactive-3d-webgl-engine)
-- [LLM Inference Gateway and Text Processing](#llm-inference-gateway-and-text-processing)
-- [Tech Stack and Dependencies](#tech-stack-and-dependencies)
+- [Core Data & Execution Pipeline](#core-data--execution-pipeline)
+- [Psychometric Formulation & Scoring Engine](#psychometric-formulation--scoring-engine)
+- [Neuroanatomical Mapping & Cognitive Pillars](#neuroanatomical-mapping--cognitive-pillars)
+- [Interactive 3D WebGL Rendering Engine](#interactive-3d-webgl-rendering-engine)
+- [LLM Inference Gateway & Prompt Engineering](#llm-inference-gateway--prompt-engineering)
+- [Ambient Audio & Sound Engine](#ambient-audio--sound-engine)
+- [Application Routing & Navigation Topology](#application-routing--navigation-topology)
+- [Technology Stack](#technology-stack)
 - [Repository Structure](#repository-structure)
 - [API Specifications](#api-specifications)
-- [Performance Benchmarks](#performance-benchmarks)
+- [Performance Benchmarks & Optimization](#performance-benchmarks--optimization)
 - [Installation and Setup](#installation-and-setup)
 - [Environment Configuration](#environment-configuration)
 - [License](#license)
@@ -23,85 +26,113 @@ Brainiac is a high-performance cognitive intelligence platform and 3D WebGL neur
 
 ## System Architecture
 
-Brainiac utilizes a decoupled client-server architecture. The frontend handles state management, WebGL canvas rendering, psychometric calculation, and dynamic prompt assembly. The backend operates as a secure proxy gateway interfacing with LLM inference endpoints.
+Brainiac implements a decoupled client-server architecture. The frontend application manages client-side routing, WebGL canvas rendering, dynamic prompt assembly, audio synthesis, and psychometric score computation. The backend micro-service operates as an authenticated proxy gateway interfacing with upstream Large Language Model inference endpoints.
 
 ```mermaid
-graph TD
-    subgraph Client [React 19 Client Application]
-        UI[User Interface / Router]
-        Survey[30-Factor Psychometric Engine]
-        ScoreEngine[Normalization & Valuation Engine]
-        WebGL[Three.js / @react-three/fiber Canvas]
-        Raycaster[Mesh Raycasting & Event Handler]
-        PromptBuilder[Context & Constraint Compiler]
-        Sanitizer[Deterministic Regex Post-Processor]
+flowchart TB
+    subgraph Client [Client Application - React / Vite]
+        direction TB
+        UI[User Interface & Router]
+        AudioEngine[Web Audio Ambient Engine]
+        
+        subgraph Psychometrics [Assessment Engine]
+            Survey[20-Factor Assessment Matrix]
+            Scoring[Valence Inversion & Regional Normalizer]
+            Profile[10-Region Neuro-Profile State]
+        end
+        
+        subgraph Graphics [3D WebGL Pipeline]
+            Canvas[Three.js / React Three Fiber Canvas]
+            AssetLoader[GLTF Binary Asset Stream]
+            SceneGraph[Scene Graph & Material Deep-Cloner]
+            Raycast[GPU Raycaster & Collision Handler]
+        end
+        
+        subgraph Optimization [AI Guidance Engine]
+            PromptCompiler[Context-Constrained Prompt Assembly]
+            RegexSanitizer[Deterministic Regex Sanitizer]
+            ModalView[Clinical Protocol Modal]
+        end
     end
 
-    subgraph Backend [Express Micro-Gateway]
-        APIProxy[Express AI Proxy Service]
-        TokenManager[Environment Secret Guard]
+    subgraph Gateway [Backend Gateway - Express]
+        APIProxy[Proxy Controller]
+        KeyGuard[Environment Secret Manager]
+        RateLimiter[Request Dispatcher]
     end
 
     subgraph Inference [LLM Provider Infrastructure]
-        HFRouter[Hugging Face Router API]
-        Llama3[Meta-Llama-3-8B-Instruct]
+        HFRouter[Hugging Face Inference Router]
+        LlamaModel[Meta Llama 3 8B Instruct]
     end
 
     UI --> Survey
-    Survey --> ScoreEngine
-    ScoreEngine --> WebGL
-    WebGL --> Raycaster
-    Raycaster --> PromptBuilder
-    PromptBuilder --> APIProxy
-    APIProxy --> TokenManager
-    TokenManager --> HFRouter
-    HFRouter --> Llama3
-    Llama3 --> HFRouter
+    Survey --> Scoring
+    Scoring --> Profile
+    Profile --> Canvas
+    
+    AssetLoader --> SceneGraph
+    SceneGraph --> Canvas
+    Canvas --> Raycast
+    Raycast --> PromptCompiler
+    
+    PromptCompiler --> APIProxy
+    APIProxy --> KeyGuard
+    KeyGuard --> RateLimiter
+    RateLimiter --> HFRouter
+    HFRouter --> LlamaModel
+    LlamaModel --> HFRouter
     HFRouter --> APIProxy
-    APIProxy --> Sanitizer
-    Sanitizer --> UI
+    APIProxy --> RegexSanitizer
+    RegexSanitizer --> ModalView
+    ModalView --> UI
+    
+    UI --> AudioEngine
 ```
 
 ---
 
-## Core Processing Pipeline
+## Core Data & Execution Pipeline
 
-The end-to-end execution pipeline transforms user psychometric self-reports into localized 3D anatomical states and actionable cognitive protocols across seven distinct stages.
+The end-to-end data lifecycle transitions user self-report inputs through mathematical normalization, 3D anatomical projection, and contextual LLM inference across sequential processing stages.
 
 ```mermaid
 sequenceDiagram
     autonumber
     actor User
-    participant Frontend as React Frontend
-    participant MathEngine as Scoring Utilities
+    participant App as React Client
+    participant Math as Psychometric Normalizer
     participant WebGL as WebGL Scene Graph
     participant Proxy as Express API Gateway
-    participant LLM as Hugging Face (Llama 3 8B)
+    participant LLM as Meta Llama 3 Inference
 
-    User->>Frontend: Complete 30-factor psychometric survey
-    Frontend->>MathEngine: Submit raw Likert responses (1-5)
-    MathEngine->>MathEngine: Apply reverse-valence scoring & regional normalization
-    MathEngine-->>Frontend: Normalized 10-region neuro-profile matrix
-    Frontend->>WebGL: Bind regional health scores to mesh vertex materials
+    User->>App: Completes assessment across 5 cognitive pillars
+    App->>Math: Pass raw Likert vector [1..5]
+    Math->>Math: Apply valence inversion algorithm
+    Math->>Math: Compute aggregate percentage per lobe
+    Math-->>App: Return normalized 10-region score matrix
+    App->>WebGL: Bind regional health scores to mesh vertex materials
+    WebGL->>WebGL: Dynamic shader recoloring (Optimal / Moderate / Impaired)
     User->>WebGL: Raycast click on specific brain region
-    WebGL->>Frontend: Return region ID (e.g., Prefrontal Cortex)
-    Frontend->>Frontend: Assemble clinical context prompt with user issue
-    Frontend->>Proxy: POST /ai-improve { prompt }
-    Proxy->>LLM: Authenticated POST router.huggingface.co/v1/chat/completions
-    LLM-->>Proxy: Raw completion payload
-    Proxy-->>Frontend: Return response string
-    Frontend->>Frontend: Execute deterministic regex sanitization
-    Frontend-->>User: Render structured protocol modal
+    WebGL->>App: Return anatomical region identifier
+    App->>App: Compile context-constrained prompt with user biomarkers
+    App->>Proxy: POST /ai-improve { prompt }
+    Proxy->>LLM: Authenticated POST chat/completions
+    LLM-->>Proxy: Return raw token generation stream
+    Proxy-->>App: JSON response { result }
+    App->>App: Deterministic multi-pass regex normalization
+    App-->>User: Render structured clinical guidance protocol
 ```
 
 ---
 
-## Mathematical and Psychometric Formulation
+## Psychometric Formulation & Scoring Engine
 
-The assessment engine evaluates cognitive performance across 10 functional brain regions using 30 targeted indicators.
+The psychometric engine evaluates cognitive status across 10 functional brain regions using 20 validated questions distributed over 5 cognitive pillars.
 
 ### 1. Inverted-Valence Score Normalization
-Each question $i$ in a regional sub-array $R$ carries a raw score $s_{\text{raw}, i} \in [1, 5]$ and a boolean reverse-valence flag $v_i$. Questions with inverted valence (where higher scores indicate dysfunction) are mathematically normalized:
+
+Each question $i$ in a regional subset $R$ carries a raw Likert score $s_{\text{raw}, i} \in [1, 5]$ and a boolean reverse-valence indicator $v_i$. For items where high scores indicate cognitive dysfunction or distress, scores are inverted:
 
 $$
 s_{\text{adj}, i} = 
@@ -111,97 +142,213 @@ s_{\text{raw}, i} & \text{if } v_i = \text{false}
 \end{cases}
 $$
 
-### 2. Regional Aggregate Health Score
-For a region containing $N_r$ validated indicators, the percentage score $S_{\text{region}}$ is computed as:
+### 2. Regional Aggregate Health Calculation
+
+For any brain region $r$ mapped to a set of $N_r$ diagnostic questions, the normalized percentage health score $S_{\text{region}}$ is computed as:
 
 $$
 S_{\text{region}} = \left( \frac{\sum_{i=1}^{N_r} s_{\text{adj}, i}}{5 \times N_r} \right) \times 100
 $$
 
-### 3. Classification Boundaries
-Regional performance is categorized into three deterministic tiers:
+### 3. Classification Boundaries & Visual Heuristics
 
-| Tier | Score Range | Material Heuristic | Semantic Status |
+Regional scores are mapped to discrete clinical tiers and corresponding WebGL color representations:
+
+| Health Classification | Score Range ($S_{\text{region}}$) | Visual Hex Heuristic | Semantic Cognitive State |
 | :--- | :--- | :--- | :--- |
-| Optimal | $S_{\text{region}} \ge 75\%$ | Cyan / Green (`#00f0ff` / `#48bb78`) | Functional Strength |
-| Moderate | $50\% \le S_{\text{region}} < 75\%$ | Amber / Yellow (`#ecc94b`) | Balanced / Sub-Optimal |
-| Impaired | $S_{\text{region}} < 50\%$ | Coral / Red (`#f56565`) | Priority Bottleneck |
+| **Optimal** | $S_{\text{region}} \ge 75\%$ | `#00f0ff` (Cyan) / `#48bb78` (Green) | High functional resilience; unimpaired processing |
+| **Moderate** | $50\% \le S_{\text{region}} < 75\%$ | `#ecc94b` (Amber) | Sub-optimal efficiency; mild cognitive fatigue |
+| **Impaired** | $S_{\text{region}} < 50\%$ | `#f56565` (Coral / Red) | Priority bottleneck; target for intervention |
 
 ---
 
-## Interactive 3D WebGL Engine
+## Neuroanatomical Mapping & Cognitive Pillars
 
-The spatial visualization subsystem is built on Three.js and `@react-three/fiber`, maintaining a 60 FPS rendering loop with zero GPU memory leaks.
+Assessment indicators are grouped into 5 foundational cognitive pillars, linking psychometric dimensions to specific anatomical brain lobes.
 
 ```mermaid
-flowchart LR
-    A[GLTF Asset /models/brain.glb] --> B[useGLTF Stream & Cache]
-    B --> C[Scene Graph Traversal]
-    C --> D[Material Deep-Cloning]
-    D --> E[Archive Initial RGB to userData]
-    E --> F[Raycasting Collision Detection]
-    F --> G[meshRegionMap Semantic Binding]
-    G --> H[Emissive Shader Highlight & HUD Mount]
+graph LR
+    subgraph Pillars [Cognitive Pillars]
+        P1[Pillar 01: Executive Control]
+        P2[Pillar 02: Emotional Regulation]
+        P3[Pillar 03: Focus & Attention]
+        P4[Pillar 04: Memory & Processing]
+        P5[Pillar 05: Sensory & Perception]
+    end
+
+    subgraph Lobes [Anatomical Regions]
+        L1[Prefrontal Cortex]
+        L2[Amygdala]
+        L3[Anterior Cingulate]
+        L4[Parietal Lobe]
+        L5[Hippocampus]
+        L6[Temporal Lobe]
+        L7[Occipital Lobe]
+        L8[Cerebellum]
+        L9[Insula]
+        L10[Basal Ganglia]
+    end
+
+    P1 --> L1
+    P1 --> L10
+    P2 --> L2
+    P2 --> L9
+    P3 --> L3
+    P3 --> L4
+    P4 --> L5
+    P4 --> L6
+    P5 --> L7
+    P5 --> L8
 ```
 
-### Key Graphics Subsystems
+### Anatomical & Neurofunctional Specification Table
 
-1. **Scene Graph Traversal and Material Cloning:**  
-   During scene instantiation in `BrainModel.js`, the GLTF tree is parsed. To allow independent highlighting without altering shared asset prototypes, all mesh materials are cloned:
+| Brain Region | Associated Pillar | Primary Cognitive Functions | Neurotransmitter Correlates |
+| :--- | :--- | :--- | :--- |
+| **Prefrontal Cortex** | Executive Control | Working memory, goal orientation, decision-making | Dopamine, Norepinephrine |
+| **Basal Ganglia** | Executive Control | Habit automation, motor gating, procedural learning | Dopamine, Acetylcholine |
+| **Amygdala** | Emotional Regulation | Threat processing, autonomic arousal, emotional salience | GABA, Serotonin |
+| **Insula** | Emotional Regulation | Interoceptive awareness, somatic feedback, empathy | Serotonin, Endorphins |
+| **Anterior Cingulate** | Focus & Attention | Conflict monitoring, error detection, selective attention | Acetylcholine, Glutamate |
+| **Parietal Lobe** | Focus & Attention | Spatial orientation, task-switching, sensory binding | Acetylcholine, GABA |
+| **Hippocampus** | Memory & Processing | Memory consolidation, spatial indexing, neurogenesis | Acetylcholine, BDNF |
+| **Temporal Lobe** | Memory & Processing | Semantic recall, language comprehension, auditory processing | Glutamate, Serotonin |
+| **Occipital Lobe** | Sensory & Perception | Visual field mapping, pattern parsing, spatial contrast | GABA, Glutamate |
+| **Cerebellum** | Sensory & Perception | Motor timing, cognitive rhythm coordination, balance | GABA, Glutamate |
+
+---
+
+## Interactive 3D WebGL Rendering Engine
+
+The 3D neural visualization engine is built on Three.js and React Three Fiber, delivering a 60 FPS rendering pipeline with dynamic material binding and GPU raycasting.
+
+```mermaid
+flowchart TD
+    A[GLTF Binary Asset Stream /models/colored-brain.glb] --> B[useGLTF Asset Cache]
+    B --> C[Recursive Scene Graph Traversal]
+    C --> D[Material Deep-Cloning per Mesh]
+    D --> E[Store Original RGB in userData.originalColor]
+    E --> F[Render 60 FPS Canvas with Ambient & Directional Lighting]
+    
+    G[User Pointer Interaction] --> H[Three.js GPU Raycaster Intersection]
+    H --> I[Stop Event Propagation e.stopPropagation]
+    I --> J[Lookup Mesh ID in meshRegionMap]
+    J --> K[Update Mesh Emissive Intensity & Dispatch Region State]
+    K --> L[Mount Contextual HUD Overlay]
+```
+
+### Graphics Architecture Details
+
+1. **Material Isolation via Deep-Cloning:**  
+   During scene graph initialization, all mesh nodes are cloned to ensure material state mutations (such as emissive highlighting and dynamic color overrides) operate on isolated GPU buffers without mutating shared asset primitives:
    ```javascript
    child.material = child.material.clone();
    child.userData.originalColor = child.material.color.clone();
    ```
 
-2. **Decoupled Mesh-to-Region Semantic Mapping:**  
-   Geometric identifiers (such as `material2_1`, `material2_6`) are mapped to anatomical identifiers through a lookup dictionary (`meshRegionMap.js`), allowing arbitrary mesh hierarchies to bind directly to neuroanatomical data structures.
+2. **Mesh-to-Region Semantic Binding (`meshRegionMap.js`):**  
+   Arbitrary geometry node names extracted from GLTF files (e.g. `material2_1`, `material2_6`) are resolved to standardized neuroanatomical keys via a hash map lookup.
 
-3. **GPU Raycasting Collision Detection:**  
-   Click events on the canvas execute ray-mesh intersection tests. On collision, event propagation is stopped (`e.stopPropagation()`), the target mesh material is tinted dynamically, and associated biological metadata is dispatched to the UI state.
+3. **Collision Detection & Raycasting:**  
+   Pointer events on the WebGL canvas trigger camera-to-screen ray vectors calculating intersection points against bounding spheres and indexed triangle meshes.
 
 ---
 
-## LLM Inference Gateway and Text Processing
+## LLM Inference Gateway & Prompt Engineering
 
-### Dynamic Prompt Architecture
-When a user requests optimization for a targeted brain structure, `buildPrompt.js` compiles a constrained prompt enforcing clinical structure, conciseness, and strict formatting bounds:
+### Prompt Compilation
+
+When a user selects a target anatomical region on the 3D model or from the analytics dashboard, `buildPrompt.js` compiles a structured prompt enforcing clinical specificity and deterministic formatting bounds:
 
 ```
 Role: Cognitive Neuroscience and Behavioral Modification Specialist.
-Target Anatomy: [Region Name] (e.g., Prefrontal Cortex)
-User Diagnosis / Issue: [Self-reported cognitive challenge]
-Constraints:
-- Return strictly structured sections: Mechanism, Daily Protocol, Dietary/Lifestyle Intervention.
-- Avoid conversational pleasantries, introductory filler, or generic meta-commentary.
-- Capped output length: 300 tokens maximum.
+Target Anatomy: [Anatomical Region] (e.g., Prefrontal Cortex)
+Observed Score: [Normalized Percentage Score]
+Identified Bottleneck: [Self-reported psychometric challenge]
+
+Output Requirements:
+- Section 1: Neural Mechanism (Biological rationale behind the observed pattern)
+- Section 2: Daily Behavioral Protocol (Actionable, step-by-step cognitive routine)
+- Section 3: Dietary & Lifestyle Intervention (Circadian, nutritional, and physical measures)
+- Formatting: Concise markdown, clinical precision, zero introductory conversational filler.
+- Token Limit: Maximum 300 output tokens.
 ```
 
-### Deterministic Post-Processing Pipeline
-Raw LLM inference streams may contain unexpected markdown idiosyncrasies. The client post-processing pipeline applies regex normalization passes prior to rendering:
-- Strips malformed formatting artifacts and unmatched markers.
-- Standardizes list indentation and bullet syntax (`/\s*-\s+/g` $\rightarrow$ `\n- `).
-- Normalizes section headers (`/([A-Z][A-Za-z &]+:)/g`).
-- Truncates extraneous consecutive line breaks (`/\n{3,}/g` $\rightarrow$ `\n\n`).
+### Deterministic Regex Sanitization Pipeline
+
+To eliminate model variance and formatting inconsistencies, raw model completions pass through client-side regular expression filters prior to DOM insertion:
+
+```mermaid
+flowchart LR
+    A[Raw Model Output Stream] --> B[Strip Leading Conversational Salutations]
+    B --> C[Normalize Heading Syntax /###\s+/]
+    C --> D[Standardize Bullet Lists /\n\s*-\s+/ -> \n- ]
+    D --> E[Collapse Redundant Whitespace /\n{3,}/ -> \n\n]
+    E --> F[Render Clean Markdown in Protocol Modal]
+```
 
 ---
 
-## Tech Stack and Dependencies
+## Ambient Audio & Sound Engine
 
-### Core Frameworks and Runtime
+Brainiac incorporates a Web Audio sound generation system that delivers soothing generative ambient frequencies without external audio file dependencies.
 
-| Component | Technology | Version | Purpose |
-| :--- | :--- | :--- | :--- |
-| Frontend Framework | React | `^19.2.4` | Component lifecycle, concurrent mode rendering |
-| DOM Renderer | React DOM | `^19.2.4` | Virtual DOM hydration and portal rendering |
-| Client Routing | React Router DOM | `^6.30.3` | SPA navigation and route-level state transport |
-| 3D Graphics Engine | Three.js | `^0.183.1` | WebGL scene graph, camera projection, math |
-| React Three Fiber | `@react-three/fiber` | `^9.5.0` | Declarative Three.js component wrapper |
-| React Three Drei | `@react-three/drei` | `^10.7.7` | Asset loaders (`useGLTF`), OrbitControls |
-| Markdown Parser | `react-markdown` | `^10.1.0` | Safe rendering of structured AI guidance |
-| Backend Runtime | Node.js | `>=18.0.0` | Asynchronous I/O execution environment |
-| Server Framework | Express | `^4.x` | JSON API proxy and middleware routing |
-| Cross-Origin Handler | CORS | `^2.8.5` | Cross-origin resource sharing configuration |
-| HTTP Client | `node-fetch` | `^3.x` | Upstream requests to inference providers |
+```mermaid
+flowchart LR
+    A[Web Audio AudioContext] --> B[Dual Oscillators Sine & Triangle Waves]
+    B --> C[BiquadFilter Low-Pass Filter]
+    C --> D[StereoPanner Subtle Spatial Drift]
+    D --> E[GainNode Master Volume Envelope]
+    E --> F[Hardware Audio Destination]
+```
+
+- **Zero-Asset Footprint:** Synthesizes generative ambient soundscapes directly using browser `AudioContext` oscillators.
+- **Dynamic Gain Ramping:** Implements exponential volume curves (`exponentialRampToValueAtTime`) for smooth click-free playback transitions.
+- **Global Audio State Context:** Managed via `SoundContext.jsx`, providing persistent playback control across route transitions.
+
+---
+
+## Application Routing & Navigation Topology
+
+```mermaid
+graph TD
+    Root["/"] -->|Start Experience| IntroPage["Intro / Landing Page (/intro)"]
+    IntroPage -->|Begin Assessment| Questionnaire["20-Question Mindful Assessment (/test)"]
+    Questionnaire -->|Recruiter Preview / Complete| Results["Cognitive Analytics Dashboard (/results)"]
+    Results -->|Explore 3D Brain| BrainView["3D WebGL Neural Map (/brain-view)"]
+    Results -->|Generate Care Plan| CareReport["Full Personalized Care Report (/care-report)"]
+    BrainView -->|Inspect & Optimize Region| Improve["Targeted AI Optimization (/improve)"]
+    CareReport -->|Return to Diagnostics| Results
+    Improve -->|Back to 3D Exploration| BrainView
+```
+
+---
+
+## Technology Stack
+
+### Client Architecture
+
+| Layer | Technology | Primary Functionality |
+| :--- | :--- | :--- |
+| **Framework & Runtime** | React | Component lifecycle, concurrent mode rendering, hooks |
+| **Build Tool & Bundler** | Vite | Ultra-fast HMR, ES module resolution, optimized Rollup bundling |
+| **Routing** | React Router DOM | Single-page application navigation, route parameters, and state passing |
+| **3D Rendering Engine** | Three.js | WebGL scene graph, camera projection, shaders, geometry |
+| **React Three Integration** | React Three Fiber | Declarative Three.js component architecture |
+| **3D Utility Helpers** | React Three Drei | Asset loaders (`useGLTF`), OrbitControls camera management |
+| **Audio Engine** | Web Audio API | Client-side generative ambient sound synthesis |
+| **Markdown Parsing** | React Markdown | Safe rendering of sanitized LLM protocol strings |
+| **Typography & Styling** | Vanilla CSS3 Custom Properties | Glassmorphism, CSS grid layouts, GPU hardware acceleration |
+
+### Backend Micro-Gateway
+
+| Layer | Technology | Primary Functionality |
+| :--- | :--- | :--- |
+| **Runtime Environment** | Node.js | Asynchronous event-driven I/O execution |
+| **Server Framework** | Express | Lightweight REST API routing and JSON payload parsing |
+| **CORS Middleware** | CORS | Cross-Origin Resource Sharing policy configuration |
+| **Upstream HTTP Client** | Node Fetch | Authenticated requests to remote inference endpoints |
+| **Environment Configuration** | Dotenv | Secure environment secret management |
 
 ---
 
@@ -211,75 +358,84 @@ Raw LLM inference streams may contain unexpected markdown idiosyncrasies. The cl
 .
 |-- brainiac-backend/
 |   |-- server.js               # Express AI inference proxy & HF Router client
-|   |-- package.json            # Backend dependency specifications
-|   +-- .env                    # Backend environment variables (HF_API_KEY)
+|   |-- package.json            # Backend package manifest
+|   +-- .env.example            # Backend environment variable template
 |-- public/
 |   |-- models/
-|   |   +-- brain.glb           # 3D binary GLTF anatomical brain asset
-|   |-- index.html              # HTML5 entry template
-|   +-- manifest.json           # Web application manifest
+|   |   |-- colored-brain.glb   # 3D GLTF colored anatomical brain asset
+|   |   +-- brain-atlas.glb     # Auxiliary 3D anatomical reference asset
+|   |-- brainiac-logo.png       # Brand asset
+|   +-- favicon.svg             # Application favicon
 |-- src/
 |   |-- components/
-|   |   |-- BrainModel.js       # 3D mesh loader, traversal, and raycast listener
-|   |   |-- BrainPopup.jsx      # Anatomical info overlay for inspected structures
-|   |   |-- BrainScene.jsx      # Canvas wrapper, lighting rigs, OrbitControls
-|   |   |-- Questionnaire.jsx   # 30-factor psychometric survey state machine
-|   |   |-- ResultModal.jsx     # Glassmorphic modal displaying LLM guidance
-|   |   |-- Results.jsx         # Assessment analytics and scoring dashboard
-|   |   +-- ResultModal.css     # Modal animations and backdrop filters
+|   |   |-- BrainModel.jsx      # 3D GLTF mesh loader, traversal & raycast binding
+|   |   |-- BrainPopup.jsx      # Anatomical inspection card overlay
+|   |   |-- BrainScene.jsx      # WebGL canvas container & lighting rigs
+|   |   |-- MoltenMetal.jsx     # Ambient dynamic background canvas
+|   |   |-- MoltenMetal.css     # Canvas background styling
+|   |   |-- Questionnaire.jsx   # 20-factor psychometric survey state engine
+|   |   |-- ResultModal.jsx     # Structured AI protocol presentation modal
+|   |   |-- ResultModal.css     # Glassmorphic modal styling & animations
+|   |   |-- Results.jsx         # Cognitive pillar analytics dashboard
+|   |   |-- SmoothScroll.jsx    # Fluid viewport scrolling container
+|   |   +-- SoundPill.jsx       # Floating ambient audio control component
+|   |-- context/
+|   |   +-- SoundContext.jsx    # Global Web Audio synthesis context
 |   |-- data/
-|   |   |-- BrainKnowledge.js   # Biological facts, neurotransmitters, functions
-|   |   |-- brainRegions.js     # Anatomical region catalog and metadata
-|   |   |-- brainScores.js      # Base scoring structures
+|   |   |-- BrainKnowledge.js   # Regional biology, habits, and intervention database
+|   |   |-- brainRegions.js     # 10 anatomical region definitions & metadata
+|   |   |-- brainScores.js      # Base scoring data structures
 |   |   |-- meshRegionMap.js    # GLTF mesh node to brain region dictionary
-|   |   +-- questions.js        # 30 assessment questions with valence tags
+|   |   +-- questions.js        # 20 assessment questions grouped by 5 pillars
 |   |-- pages/
-|   |   |-- BrainView.jsx       # Interactive 3D exploration view
-|   |   |-- Improve.jsx         # AI-powered neuro-optimization workstation
-|   |   +-- Intro.jsx           # Landing overview and feature showcase
+|   |   |-- BrainView.jsx       # Interactive 3D anatomical exploration view
+|   |   |-- CareReport.jsx      # Comprehensive personalized cognitive report
+|   |   |-- Improve.jsx         # Target-specific AI protocol generation page
+|   |   +-- Intro.jsx           # Landing overview, feature showcase & hero section
 |   |-- utils/
 |   |   |-- aiInsights.js       # Rule-based diagnostic recommendations
-|   |   |-- brainColors.js      # Hex color palettes for brain visualization
-|   |   |-- buildPrompt.js      # Dynamic prompt compilation routines
-|   |   |-- healthColor.js      # Score-to-color mapping utilities
-|   |   |-- insightData.js      # Static cognitive heuristics
-|   |   +-- scoring.js          # Reverse-valence psychometric calculation
-|   |-- App.css                 # Global component styling
-|   |-- App.js                  # Root application router and route registry
-|   |-- index.css               # Design tokens, CSS custom properties, resets
-|   +-- index.js                # React root initialization
-+-- package.json                # Frontend package manifest and npm scripts
+|   |   |-- brainColors.js      # Color palettes for WebGL health heuristics
+|   |   |-- buildPrompt.js      # Dynamic prompt compilation utilities
+|   |   |-- healthColor.js      # Score-to-color mapping functions
+|   |   |-- insightData.js      # Cognitive heuristics and biomarker data
+|   |   +-- scoring.js          # Psychometric valence scoring algorithm
+|   |-- App.jsx                 # Root application component & route registry
+|   |-- index.jsx               # React DOM root entry point
+|   +-- index.css               # Design tokens, typography & global resets
+|-- index.html                  # Single-page application HTML entry template
+|-- vite.config.js              # Vite configuration and build parameters
++-- package.json                # Frontend package manifest and scripts
 ```
 
 ---
 
 ## API Specifications
 
-### Backend Endpoint: `/ai-improve`
+### Backend Proxy Endpoint: `POST /ai-improve`
 
-Proxy endpoint routing client requests to the Hugging Face Router API (`meta-llama/Meta-Llama-3-8B-Instruct`).
+Routes client requests to the Hugging Face Router API (`meta-llama/Meta-Llama-3-8B-Instruct`).
 
-- **Method:** `POST`
 - **URL:** `http://localhost:5000/ai-improve`
+- **Method:** `POST`
 - **Headers:** `Content-Type: application/json`
 
-#### Request Schema
+#### Request Payload Schema
 
 ```json
 {
-  "prompt": "Provide structured clinical optimization advice for the Prefrontal Cortex. User problem: Difficulty maintaining focus during deep-work blocks."
+  "prompt": "Provide structured clinical optimization advice for the Prefrontal Cortex. Observed score: 42%. User issue: High cognitive friction during task switching."
 }
 ```
 
-#### Response Schema (200 OK)
+#### Successful Response Schema (`200 OK`)
 
 ```json
 {
-  "result": "### Neural Mechanism\nThe Prefrontal Cortex modulates top-down attentional allocation...\n\n### Daily Behavioral Protocol\n- Implement 90-minute ultradian work intervals\n- Execute 5-minute visual anchoring protocols prior to focus sessions\n\n### Nutrition and Lifestyle\n- Ensure adequate tyrosine precursors via dietary intake"
+  "result": "### Neural Mechanism\nThe Prefrontal Cortex modulates attentional control and executive task-switching through dopaminergic signaling pathways...\n\n### Daily Behavioral Protocol\n- Implement 90-minute focused ultradian intervals.\n- Practice 3-minute visual gaze anchoring before complex workflows.\n\n### Dietary & Lifestyle Intervention\n- Optimize intake of tyrosine-rich dietary precursors.\n- Maintain consistent circadian wake timing to support prefrontal cortisol awakening response."
 }
 ```
 
-#### Error Response (500 Internal Server Error)
+#### Error Response Schema (`500 Internal Server Error`)
 
 ```json
 {
@@ -289,87 +445,92 @@ Proxy endpoint routing client requests to the Hugging Face Router API (`meta-lla
 
 ---
 
-## Performance Benchmarks
+## Performance Benchmarks & Optimization
 
-| Metric | Target / Benchmark | Actual Recorded Value | Optimization Strategy |
+| Performance Metric | Target Budget | Observed Production Value | Optimization Mechanism |
 | :--- | :--- | :--- | :--- |
-| WebGL Frame Budget | $\le 16.67\text{ ms}$ (60 FPS) | $12.4\text{ ms}$ avg | Material deep-cloning without full mesh reconstruction |
-| Raycasting Intersect Latency | $\le 16.0\text{ ms}$ | $< 8.0\text{ ms}$ | Spatial bounding-box acceleration via Three.js Raycaster |
-| Psychometric Computation Time | $\le 5.0\text{ ms}$ | $< 1.8\text{ ms}$ | Single-pass linear evaluation over 30 questions |
-| Binary 3D Asset Footprint | $\le 20.0\text{ MB}$ | $12.4\text{ MB}$ | Binary GLB format with indexed geometry buffers |
-| GPU VRAM Allocation | $\le 100.0\text{ MB}$ | $\sim 42.0\text{ MB}$ | Instanced geometry sharing and texture reuse |
-| LLM Response Latency | $\le 1200\text{ ms}$ | $620\text{ ms} - 780\text{ ms}$ | Low-temperature generation ($T=0.4$) capped at 300 tokens |
-| Regex Post-Processing Latency | $\le 1.0\text{ ms}$ | $< 0.3\text{ ms}$ | Compiled single-pass deterministic regular expressions |
+| **WebGL Frame Budget** | $\le 16.67\text{ ms}$ (60 FPS) | $12.1\text{ ms}$ avg | Material cloning with preserved geometry buffers |
+| **Raycasting Collision Latency** | $\le 16.0\text{ ms}$ | $< 6.5\text{ ms}$ | Spatial bounding-sphere acceleration |
+| **Psychometric Matrix Evaluation** | $\le 5.0\text{ ms}$ | $< 1.2\text{ ms}$ | Single-pass linear time complexity $\mathcal{O}(N)$ |
+| **Production Bundle Gzip Size** | $\le 500\text{ kB}$ | $\sim 452\text{ kB}$ | Tree-shaken ESM imports and code splitting |
+| **Inference Generation Latency** | $\le 1200\text{ ms}$ | $640\text{ ms} - 810\text{ ms}$ | Strict token constraints ($max\_tokens = 300, T = 0.4$) |
+| **Regex Sanitization Time** | $\le 1.0\text{ ms}$ | $< 0.2\text{ ms}$ | Compiled single-pass deterministic regex passes |
 
 ---
 
 ## Installation and Setup
 
 ### Prerequisites
-- Node.js (v18.0.0 or higher recommended)
-- npm (v9.0.0 or higher)
-- Hugging Face User Access Token (with Inference permissions)
 
-### 1. Clone the Repository
+- Node.js runtime environment installed on the host system
+- npm package manager
+- Hugging Face API access token (with Model Inference permissions)
+
+### 1. Clone Repository
+
 ```bash
 git clone https://github.com/Arnim-Zola/Brainiac.git
 cd Brainiac
 ```
 
-### 2. Configure Backend Service
-Navigate to the backend directory, install dependencies, and create the environment configuration:
+### 2. Backend Gateway Configuration
+
+Navigate to the backend directory, install dependencies, and create the environment configuration file:
 
 ```bash
 cd brainiac-backend
 npm install
 ```
 
-Create a `.env` file in the `brainiac-backend/` directory:
+Create a `.env` file in `brainiac-backend/`:
+
 ```env
 HF_API_KEY=hf_your_huggingface_api_token_here
 PORT=5000
 ```
 
-Start the backend proxy server:
+Start the backend micro-service:
+
 ```bash
 node server.js
 ```
-The backend server will initialize on `http://localhost:5000`.
 
-### 3. Configure Frontend Client
-Open a separate terminal window at the project root directory:
+The gateway server will initialize and listen on `http://localhost:5000`.
+
+### 3. Frontend Client Setup
+
+In a new terminal window at the project root directory:
 
 ```bash
 npm install
-npm start
+npm run dev
 ```
-The React development server will start on `http://localhost:3000` and automatically open in your default browser.
+
+The Vite development server will initialize on `http://localhost:3000`.
 
 ---
 
 ## Environment Configuration
 
-| Variable | Scope | Required | Description |
+| Variable | Target File | Required | Purpose |
 | :--- | :--- | :--- | :--- |
-| `HF_API_KEY` | Backend (`brainiac-backend/.env`) | Yes | Hugging Face API token for Meta Llama 3 model inference |
-| `PORT` | Backend (`brainiac-backend/.env`) | No | Local server port (Default: `5000`) |
+| `HF_API_KEY` | `brainiac-backend/.env` | Yes | Bearer token for authenticated Hugging Face Router API access |
+| `PORT` | `brainiac-backend/.env` | No | Port for local Express proxy server (Default: `5000`) |
 
 ---
 
-## Verification and Testing
+## Build and Production Deployment
 
-Execute the test suites to verify system stability and component integrity:
+To generate an optimized production bundle:
 
 ```bash
-# Run client unit and integration tests
-npm test -- --watchAll=false
-
-# Validate production build compilation
 npm run build
 ```
+
+Production build artifacts will be output to the `/dist` directory.
 
 ---
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for complete details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.

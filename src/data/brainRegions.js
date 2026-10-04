@@ -1,310 +1,264 @@
 export const brainRegions = [
+  // ── 1. PRIMARY VISIBLE ANATOMICAL LOBES ──
   {
     id: "prefrontal",
-    name: "Prefrontal Cortex",
-    summary: "Responsible for decision-making, planning, impulse control, and personality expression. It supports logical thinking and goal-directed behavior.",
-
+    name: "Frontal Lobe & Prefrontal Cortex",
+    summary: "Brings calm clarity, executive focus, emotional regulation, and mindful decisions.",
     functions: [
-      "decision making",
-      "planning",
-      "self control",
-      "goal-oriented behavior"
+      "Executive Clarity",
+      "Calm Focus & Planning",
+      "Emotional Regulation",
+      "Mindful Choices"
     ],
     organs: [
-      "heart rhythm regulation",
-      "hormonal balance",
-      "stress response"
+      "Heart Rhythm Regulation",
+      "Hormonal Balance",
+      "Stress Response System"
     ],
     improve: [
-      "deep focus work",
-      "meditation",
-      "reduce multitasking",
-      "consistent sleep"
-    ]
-  },
-  {
-    id: "orbitofrontal",
-    name: "Orbitofrontal Cortex",
-    summary: "Evaluates rewards, emotions, and decision outcomes. It helps regulate impulse control and social behavior.",
-
-    functions: [
-      "impulse control",
-      "reward evaluation",
-      "social behavior"
-    ],
-    organs: [
-      "hormonal regulation",
-      "stress hormones"
-    ],
-    improve: [
-      "mindful decision making",
-      "reduce impulsive habits",
-      "social interaction"
-    ]
-  },
-  {
-    id: "anterior_cingulate",
-    name: "Anterior Cingulate Cortex",
-    summary: "Supports emotional regulation, attention control, and error detection. It helps manage stress and adapt behavior.",
-
-    functions: [
-      "emotional regulation",
-      "error detection",
-      "attention control"
-    ],
-    organs: [
-      "autonomic nervous system",
-      "heart rate regulation"
-    ],
-    improve: [
-      "mindfulness meditation",
-      "cognitive training",
-      "focused breathing"
-    ]
-  },
-  {
-    id: "amygdala",
-    name: "Amygdala",
-    summary: "Processes emotions such as fear and stress. It activates survival responses and influences emotional memory.",
-
-    functions: [
-      "fear response",
-      "stress processing",
-      "emotional memory"
-    ],
-    organs: [
-      "adrenal glands",
-      "immune response",
-      "heart rate"
-    ],
-    improve: [
-      "stress management",
-      "deep breathing",
-      "journaling emotions",
-      "mindfulness"
-    ]
-  },
-  {
-    id: "hippocampus",
-    name: "Hippocampus",
-    summary: "Essential for memory formation and learning. It helps store experiences and supports spatial navigation.",
-
-    functions: [
-      "memory formation",
-      "learning",
-      "spatial navigation"
-    ],
-    organs: [
-      "sleep cycle regulation",
-      "nervous system health"
-    ],
-    improve: [
-      "learning new skills",
-      "exercise",
-      "adequate sleep",
-      "omega-3 diet"
-    ]
-  },
-  {
-    id: "insular",
-    name: "Insular Cortex",
-    summary: "Integrates body awareness and emotional perception. It helps interpret internal body states like pain, hunger, and gut sensations.",
-
-    functions: [
-      "body awareness",
-      "emotional awareness",
-      "pain perception"
-    ],
-    organs: [
-      "digestive system",
-      "gut-brain connection"
-    ],
-    improve: [
-      "mind-body awareness",
-      "slow breathing",
-      "healthy diet"
-    ]
-  },
-  {
-    id: "basal_ganglia",
-    name: "Basal Ganglia",
-    summary: "Controls movement coordination and habit formation. It supports motor learning and smooth physical actions.",
-
-    functions: [
-      "movement control",
-      "habit formation",
-      "motor learning"
-    ],
-    organs: [
-      "muscle coordination",
-      "motor control system"
-    ],
-    improve: [
-      "regular exercise",
-      "motor skill practice",
-      "reduce sedentary lifestyle"
-    ]
-  },
-  {
-    id: "dopamine_reward",
-    name: "Dopamine Reward System",
-    summary: "Regulates motivation, pleasure, and reinforcement learning. It influences habits, cravings, and goal-seeking behavior.",
-
-    functions: [
-      "motivation",
-      "pleasure",
-      "reward learning"
-    ],
-    organs: [
-      "hormonal balance",
-      "addiction pathways"
-    ],
-    improve: [
-      "goal setting",
-      "reduce instant gratification",
-      "exercise",
-      "healthy habits"
-    ]
-  },
-  {
-    id: "nucleus_accumbens",
-    name: "Nucleus Accumbens",
-    summary: "A key reward center that processes motivation and reinforcement. It plays a major role in pleasure and addiction behavior.",
-
-    functions: [
-      "reward processing",
-      "motivation",
-      "reinforcement learning"
-    ],
-    organs: [
-      "dopamine regulation",
-      "addiction response"
-    ],
-    improve: [
-      "avoid addictive stimuli",
-      "structured goals",
-      "reward discipline"
-    ]
-  },
-  {
-    id: "vta",
-    name: "Ventral Tegmental Area (VTA)",
-    summary: "Produces dopamine and powers the brain’s reward circuitry. It drives motivation, pleasure, and goal-directed behavior.",
-
-    functions: [
-      "dopamine production",
-      "reward circuitry",
-      "motivational drive"
-    ],
-    organs: [
-      "hormonal system",
-      "reward pathways"
-    ],
-    improve: [
-      "healthy reward habits",
-      "exercise",
-      "limit overstimulation"
-    ]
-  },
-  {
-    id: "hypothalamus",
-    name: "Hypothalamus",
-    summary: "Maintains body balance by regulating temperature, hunger, hormones, and stress responses. It links the nervous and endocrine systems.",
-
-    functions: [
-      "body temperature control",
-      "hormone regulation",
-      "hunger & thirst control"
-    ],
-    organs: [
-      "endocrine system",
-      "metabolism",
-      "sleep cycle"
-    ],
-    improve: [
-      "sleep schedule",
-      "hydration",
-      "balanced nutrition"
-    ]
-  },
-  {
-    id: "thalamus",
-    name: "Thalamus",
-    summary: "Acts as the brain’s sensory relay station. It directs incoming sensory signals to the appropriate brain regions.",
-
-    functions: [
-      "sensory signal relay",
-      "conscious awareness",
-      "sleep regulation"
-    ],
-    organs: [
-      "sensory systems",
-      "sleep cycle"
-    ],
-    improve: [
-      "proper sleep",
-      "reduce sensory overload",
-      "meditation"
-    ]
-  },
-  {
-    id: "cerebellum",
-    name: "Cerebellum",
-    summary: "Coordinates balance, posture, and precise movements. It ensures smooth and accurate motor control.",
-
-    functions: [
-      "balance",
-      "coordination",
-      "motor control"
-    ],
-    organs: [
-      "muscle coordination",
-      "posture control"
-    ],
-    improve: [
-      "balance exercises",
-      "sports activity",
-      "yoga"
+      "Dedicated quiet focus time",
+      "Gentle mindfulness & diaphragmatic breathing",
+      "Single-tasking with calm patience",
+      "Restful, restorative nighttime sleep"
     ]
   },
   {
     id: "parietal",
     name: "Parietal Lobe",
-    summary: "Processes touch, pressure, and spatial awareness. It helps you understand body position and navigate space.",
-
+    summary: "Grounds your physical senses, spatial navigation, and mind-body presence.",
     functions: [
-      "spatial awareness",
-      "sensory processing",
-      "body positioning"
+      "Sensory Integration",
+      "Body Presence & Grounding",
+      "Spatial Navigation",
+      "Touch & Texture Perception"
     ],
     organs: [
-      "sensory system",
-      "touch perception"
+      "Somatosensory System",
+      "Touch Perception",
+      "Proprioception Pathways"
     ],
     improve: [
-      "spatial tasks",
-      "puzzles",
-      "physical activity"
+      "Mindful touch & grounding natural textures",
+      "Barefoot walking on grass or earth",
+      "Relaxing mindful stretching & body scans",
+      "Connecting deeply with nature outdoors"
     ]
   },
   {
     id: "temporal",
     name: "Temporal Lobe",
-    summary: "Essential for hearing, language understanding, and memory processing. It helps recognize sounds and speech.",
-
+    summary: "Deepens emotional connection, auditory harmony, language, and cherished memories.",
     functions: [
-      "hearing",
-      "language comprehension",
-      "memory processing"
+      "Auditory Harmony",
+      "Language & Speech",
+      "Cherished Long-term Memory",
+      "Emotional Connection"
     ],
     organs: [
-      "auditory system",
-      "memory networks"
+      "Auditory System",
+      "Memory Networks",
+      "Limbic Communication"
     ],
     improve: [
-      "language learning",
-      "listening exercises",
-      "music training"
+      "Listening to uplifting soothing acoustic music",
+      "Heartfelt meaningful conversations",
+      "Reading inspiring, calming literature",
+      "Soothing sound baths & restorative silence"
+    ]
+  },
+  {
+    id: "occipital",
+    name: "Occipital Lobe",
+    summary: "Nurtures clear visual perception, imagination, pattern recognition, and visual harmony.",
+    functions: [
+      "Visual Harmony",
+      "Creative Imagery",
+      "Spatial Clarity",
+      "Color & Pattern Recognition"
+    ],
+    organs: [
+      "Visual System",
+      "Circadian Light Balance",
+      "Optic Pathways"
+    ],
+    improve: [
+      "Resting eyes with the 20-20-20 rule",
+      "Taking in peaceful green natural landscapes",
+      "Warm evening low-light relaxation before sleep",
+      "Gentle visual meditations & mindfulness"
+    ]
+  },
+  {
+    id: "cerebellum",
+    name: "Cerebellum",
+    summary: "Brings effortless physical flow, balance, graceful posture, and smooth motor coordination.",
+    functions: [
+      "Graceful Flow",
+      "Physical Balance",
+      "Motor Coordination",
+      "Calm Upright Posture"
+    ],
+    organs: [
+      "Muscle Coordination System",
+      "Vestibular Balance System",
+      "Posture Control"
+    ],
+    improve: [
+      "Flowing with gentle yoga & stretching",
+      "Relaxed posture and balance exercises",
+      "Tai Chi & rhythmic walking in nature",
+      "Smooth, mindful physical movement"
+    ]
+  },
+  {
+    id: "brainstem",
+    name: "Brainstem",
+    summary: "Master conduit of vital autonomic rhythms, restful breathing, and subconscious flow.",
+    functions: [
+      "Vital Autonomic Rhythms",
+      "Calm Heartbeat & Breath",
+      "Sleep-Wake Transitions",
+      "Subconscious Balance"
+    ],
+    organs: [
+      "Autonomic Nervous System",
+      "Respiratory System",
+      "Cardiovascular Rhythms"
+    ],
+    improve: [
+      "Consistent, cozy bedtime routine",
+      "Slow, calming deep belly breathing",
+      "Morning natural sunlight exposure",
+      "Gentle neck and spine alignment"
+    ]
+  },
+
+  // ── 2. DEEP MEDIAL STRUCTURES & CROSS-SECTION NUCLEI ──
+  {
+    id: "corpus",
+    name: "Corpus Callosum",
+    summary: "The majestic 200-million-axon neural bridge uniting both brain hemispheres in creative synergy.",
+    functions: [
+      "Hemispheric Synergy",
+      "Intuition & Logic Harmony",
+      "Bilateral Coordination",
+      "Holistic Insight"
+    ],
+    organs: [
+      "Interhemispheric Pathways",
+      "Bimanual Motor Skills"
+    ],
+    improve: [
+      "Cross-body movement & gentle juggling",
+      "Playing a musical instrument",
+      "Writing & sketching by hand",
+      "Integrated mindful puzzle solving"
+    ]
+  },
+  {
+    id: "thalamus",
+    name: "Thalamus",
+    summary: "The grand sensory gateway, filtering and harmonizing sensations into conscious presence.",
+    functions: [
+      "Sensory Relay",
+      "Conscious Grounding",
+      "Attentional Gating",
+      "Inner Calm Filtering"
+    ],
+    organs: [
+      "Sensory Pathways",
+      "Sleep-Wake Rhythms"
+    ],
+    improve: [
+      "Creating quiet, low-stimulus spaces",
+      "Soft acoustic ambient sounds",
+      "Mindful digital detox periods",
+      "Breath-focused meditation"
+    ]
+  },
+  {
+    id: "hypothalamus",
+    name: "Hypothalamus & Pituitary Axis",
+    summary: "The master hormonal orchestrator maintaining internal homeostasis, circadian rhythm, and vitality.",
+    functions: [
+      "Homeostatic Balance",
+      "Circadian Sleep Cycles",
+      "Hormonal Harmony",
+      "Core Temperature Ease"
+    ],
+    organs: [
+      "Endocrine System",
+      "Pituitary Gland",
+      "Adrenal Rhythm"
+    ],
+    improve: [
+      "Natural morning daylight within 30 min of waking",
+      "Consistent warm hydration",
+      "Cool, pitch-black sleep sanctuary",
+      "Nourishing, unhurried meals"
+    ]
+  },
+  {
+    id: "amygdala",
+    name: "Amygdala Core",
+    summary: "Sentinel of emotional safety, empathy, deep intuition, and soothing self-compassion.",
+    functions: [
+      "Emotional Safety",
+      "Deep Empathy",
+      "Intuitive Wisdom",
+      "Calm Reassurance"
+    ],
+    organs: [
+      "Autonomic Stress Circuits",
+      "Heart Rate Dynamics"
+    ],
+    improve: [
+      "Loving self-affirmations during stress",
+      "Lengthened exhales (4-in, 7-out)",
+      "Warm soothing herbal teas",
+      "Grounding sensory walks in nature"
+    ]
+  },
+  {
+    id: "hippocampus",
+    name: "Hippocampus",
+    summary: "Curator of cherished memories, spatial cognitive maps, and the lifelong joy of learning.",
+    functions: [
+      "Cherished Long-term Memories",
+      "Joy of Learning",
+      "Spatial Mental Mapping",
+      "Neuroplasticity"
+    ],
+    organs: [
+      "Memory Consolidation Networks",
+      "Neurogenesis Pathways"
+    ],
+    improve: [
+      "Exploring new joyful hobbies & books",
+      "Cherishing gratitude journal memories",
+      "Undisturbed deep Stage 3/4 slow-wave sleep",
+      "Nutrient-dense antioxidant meals"
+    ]
+  },
+  {
+    id: "vta",
+    name: "Ventral Tegmental Area (VTA) & Dopamine Core",
+    summary: "The bio-spark of inner inspiration, genuine curiosity, enthusiasm, and celebration of small wins.",
+    functions: [
+      "Inner Inspiration",
+      "Healthy Motivation",
+      "Curiosity & Wonder",
+      "Positive Spark"
+    ],
+    organs: [
+      "Mesolimbic Dopamine Circuit",
+      "Reward Pathways"
+    ],
+    improve: [
+      "Celebrating tiny daily progress",
+      "Pursuing meaningful creative passions",
+      "Mindful detox from high-stimulation feeds",
+      "Savoring peaceful accomplishments"
     ]
   }
 ];

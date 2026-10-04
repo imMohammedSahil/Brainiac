@@ -1,13 +1,14 @@
-export function buildInsightData(regionScores) {
+export function buildInsightData(regionScores = {}) {
   const weak = [];
   const moderate = [];
   const strong = [];
 
-  for (const region in regionScores) {
+  const keys = Object.keys(regionScores);
+  for (const region of keys) {
     const score = regionScores[region];
 
-    if (score < 40) weak.push(region);
-    else if (score < 70) moderate.push(region);
+    if (score < 45) weak.push(region);
+    else if (score < 75) moderate.push(region);
     else strong.push(region);
   }
 
@@ -15,8 +16,8 @@ export function buildInsightData(regionScores) {
     weak,
     moderate,
     strong,
-    overall:
-      Object.values(regionScores).reduce((a,b)=>a+b,0) /
-      Object.keys(regionScores).length
+    overall: keys.length > 0
+      ? Object.values(regionScores).reduce((a, b) => a + b, 0) / keys.length
+      : 0
   };
 }

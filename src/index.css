@@ -11,42 +11,63 @@
    THEME VARIABLES
 ========================= */
 :root {
-
   /* backgrounds */
-  --bg-primary: #05060a;
-  --bg-secondary: #0b0d14;
-  --bg-card: rgba(20, 22, 35, 0.85);
+  --bg-primary: #000000;
+  --bg-secondary: #080808;
+  --bg-card: rgba(12, 12, 12, 0.9);
 
   /* accent colors */
-  --accent-purple: #8b5cf6;
-  --accent-blue: #7aa2ff;
+  --accent-purple: #ffffff;
+  --accent-blue: #e5e5e5;
 
   /* text */
-  --text-primary: #e8ecf1;
-  --text-secondary: #9aa4b2;
+  --text-primary: #ffffff;
+  --text-secondary: #a1a1aa;
   --text-muted: rgba(255,255,255,0.45);
 
   /* borders & glow */
-  --border-subtle: rgba(255,255,255,0.08);
-  --glow-purple: 0 0 25px rgba(139,92,246,0.35);
-  --shadow-soft: 0 20px 60px rgba(0,0,0,0.55);
+  --border-subtle: rgba(255,255,255,0.1);
+  --glow-purple: 0 0 25px rgba(255,255,255,0.15);
+  --shadow-soft: 0 20px 60px rgba(0,0,0,0.85);
 }
 
 /* =========================
-   BASE LAYOUT
+   BASE LAYOUT & LENIS SMOOTH SCROLL
 ========================= */
+html {
+  background: #000000;
+  scroll-behavior: initial;
+}
+
+html.lenis, html.lenis body {
+  height: auto;
+  min-height: 100%;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
 html, body, #root {
-  height: 100%;
+  min-height: 100%;
   width: 100%;
+  background: #000000;
 }
 
 body {
-  background:
-    radial-gradient(circle at 15% 10%, rgba(139,92,246,0.35), transparent 40%),
-    radial-gradient(circle at 85% 0%, rgba(122,162,255,0.25), transparent 40%),
-    radial-gradient(circle at 50% 100%, rgba(139,92,246,0.15), transparent 50%),
-    var(--bg-primary);
-
+  background: #000000;
   color: var(--text-primary);
   font-family: Inter, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;

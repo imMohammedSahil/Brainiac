@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
+import { OrbitControls, Center } from "@react-three/drei";
 import BrainModel from "./BrainModel";
 
 export default function BrainScene() {
@@ -14,9 +14,11 @@ export default function BrainScene() {
         <directionalLight position={[5, 5, 5]} />
 
         {/* 👇 receives region clicks */}
-        <BrainModel onRegionClick={setRegion} />
+        <Center>
+          <BrainModel onRegionClick={setRegion} />
+        </Center>
 
-        <OrbitControls />
+        <OrbitControls makeDefault target={[0, 0, 0]} />
       </Canvas>
 
       {/* SIMPLE POPUP (TEST) */}
