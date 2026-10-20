@@ -471,7 +471,7 @@ Routes client requests to the Hugging Face Router API (`meta-llama/Meta-Llama-3-
 ### 1. Clone Repository
 
 ```bash
-git clone https://github.com/Arnim-Zola/Brainiac.git
+git clone https://github.com/imMohammedSahil/Brainiac.git
 cd Brainiac
 ```
 
