@@ -24,7 +24,7 @@
       }
     },
     {
-      "source": "/(.*)",
+      "source": "/((?!_vercel).*)",
       "destination": {
         "service": "app"
       }
