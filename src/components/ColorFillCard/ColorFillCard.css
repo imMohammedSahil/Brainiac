@@ -1,0 +1,127 @@
+/**
+ * ColorFillCard.css
+ * Premium radial color flood micro-interaction styles.
+ */
+
+.color-fill-card {
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  background-color: var(--cfc-base-bg, #080808);
+  border: 1px solid var(--cfc-border, rgba(255, 255, 255, 0.12));
+  border-radius: 18px;
+  padding: 28px 24px;
+  cursor: pointer;
+  outline: none;
+  isolation: isolate;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transform: translateY(0);
+  transition:
+    transform 0.8s var(--cfc-easing, cubic-bezier(0.22, 1, 0.36, 1)),
+    border-color 1.2s ease,
+    box-shadow 1.2s ease;
+}
+
+/* Background flood layer */
+.color-fill-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--cfc-fill-bg, #ffffff);
+  border-radius: inherit;
+  z-index: 1;
+  pointer-events: none;
+  clip-path: circle(0% at var(--cfc-origin, 0% 100%));
+  transition: clip-path var(--cfc-duration, 2200ms) var(--cfc-easing, cubic-bezier(0.22, 1, 0.36, 1));
+  will-change: clip-path;
+}
+
+/* Card active/filled state */
+.color-fill-card.is-filled {
+  border-color: var(--cfc-border-fill, transparent);
+  transform: translateY(var(--cfc-lift, -4px));
+  box-shadow: none;
+}
+
+.color-fill-card.is-filled::before {
+  clip-path: circle(142% at var(--cfc-origin, 0% 100%));
+}
+
+/* Content Container */
+.color-fill-card__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  color: var(--cfc-text, #ffffff);
+  transition: color calc(var(--cfc-duration, 2200ms) * 0.75) var(--cfc-easing, cubic-bezier(0.22, 1, 0.36, 1));
+}
+
+.color-fill-card.is-filled .color-fill-card__content {
+  color: var(--cfc-text-fill, #000000);
+}
+
+/* Icon */
+.color-fill-card__icon {
+  font-size: 22px;
+  color: var(--cfc-text, #ffffff);
+  margin-bottom: 14px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  transition: color calc(var(--cfc-duration, 2200ms) * 0.7) var(--cfc-easing, cubic-bezier(0.22, 1, 0.36, 1));
+}
+
+.color-fill-card.is-filled .color-fill-card__icon {
+  color: var(--cfc-text-fill, #000000);
+}
+
+/* Title */
+.color-fill-card__title {
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+  color: var(--cfc-text, #ffffff);
+  margin: 0 0 10px 0;
+  transition: color calc(var(--cfc-duration, 2200ms) * 0.75) var(--cfc-easing, cubic-bezier(0.22, 1, 0.36, 1));
+}
+
+.color-fill-card.is-filled .color-fill-card__title {
+  color: var(--cfc-text-fill, #000000);
+}
+
+/* Description */
+.color-fill-card__desc {
+  font-family: inherit;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--cfc-desc, #a1a1aa);
+  margin: 0;
+  transition: color calc(var(--cfc-duration, 2200ms) * 0.8) var(--cfc-easing, cubic-bezier(0.22, 1, 0.36, 1));
+}
+
+.color-fill-card.is-filled .color-fill-card__desc {
+  color: var(--cfc-desc-fill, #18181b);
+}
+
+/* Keyboard accessibility */
+.color-fill-card:focus-visible {
+  outline: 2px solid var(--cfc-border-fill, #ffffff);
+  outline-offset: 3px;
+}
+
+/* Accessibility: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .color-fill-card,
+  .color-fill-card::before,
+  .color-fill-card__icon,
+  .color-fill-card__title,
+  .color-fill-card__desc {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
