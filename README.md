@@ -22,6 +22,7 @@ Brainiac is a high-performance cognitive intelligence platform and spatial anato
 - [Performance Benchmarks & Optimization](#performance-benchmarks--optimization)
 - [Installation and Setup](#installation-and-setup)
 - [Environment Configuration](#environment-configuration)
+- [Community & Governance](#community--governance)
 - [License](#license)
 
 ---
@@ -530,6 +531,17 @@ npm run build
 ```
 
 Production build artifacts will be output to the `/dist` directory.
+
+---
+
+## Community & Governance
+
+We are committed to fostering an inclusive, welcoming, and secure open-source environment:
+
+- [Code of Conduct](CODE_OF_CONDUCT.md)
+- [Contributing](CONTRIBUTING.md)
+- [MIT License](LICENSE)
+- [Security Policy](SECURITY.md)
 
 ---
 
