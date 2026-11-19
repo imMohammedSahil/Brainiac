@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="public/brainiac-banner.png" alt="Brainiac Banner" width="100%" />
+</p>
+
 # Brainiac: Neuroscience-Inspired Cognitive Intelligence and 3D WebGL Neural Mapping Platform
 
 > **Live Demo:** [https://brainiac-care.vercel.app](https://brainiac-care.vercel.app)
