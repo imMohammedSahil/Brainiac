@@ -2,12 +2,12 @@
 
 ## Supported Versions
 
-We release patches and security updates for the actively maintained versions listed below:
+We release patches and security updates for actively maintained branches:
 
-| Version | Supported          |
-| ------- | ------------------ |
-| `main`  | :white_check_mark: |
-| < 1.0.0 | :x:                |
+| Version | Supported | Automated Scans |
+| :--- | :--- | :--- |
+| `main`  | Yes | CodeQL (Weekly), Dependabot (Weekly) |
+| < 1.0.0 | No | Inactive |
 
 ---
 

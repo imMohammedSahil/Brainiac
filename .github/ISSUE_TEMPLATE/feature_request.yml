@@ -1,0 +1,56 @@
+name: "Feature Request"
+description: Propose a new feature, anatomical visualization, or user experience enhancement.
+title: "[Feature]: "
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have an idea to make **Brainiac** even more engaging, scientifically accurate, or visually stunning? Share your vision below!
+  - type: input
+    id: title
+    attributes:
+      label: Feature Title
+      description: A concise summary of the proposed feature.
+      placeholder: e.g., Add interactive neural pulse animation on high-activity brain regions
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or Motivation
+      description: Is your feature request related to a problem or gap in current capabilities?
+      placeholder: I'm always frustrated when...
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution / Experience
+      description: Describe what you want to see happen and how users would interact with it.
+    validations:
+      required: true
+  - type: dropdown
+    id: domain
+    attributes:
+      label: Architecture Domain
+      options:
+        - "3D Graphics & Shaders (Three.js / WebGL / R3F)"
+        - "Neuroscience & Psychometrics Engine"
+        - "AI Inference & Protocol Generation"
+        - "Sound Design & Web Audio API"
+        - "UI / Design System / Animations (GSAP / CSS)"
+        - "Developer Experience / CI / Tooling"
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Any alternative solutions or workarounds you considered.
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      options:
+        - label: I would be willing to submit a Pull Request for this feature.

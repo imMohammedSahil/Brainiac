@@ -1,0 +1,32 @@
+name: "Neuroscience & Psychometric Calibration"
+description: Propose calibrations to regional mapping, question valence, or clinical protocol framing.
+title: "[Neuro]: "
+labels: ["neuroscience", "psychometrics"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template for suggesting improvements to the 20-factor psychometric survey, regional activation weights, or evidence-based lifestyle rituals.
+  - type: input
+    id: pillar
+    attributes:
+      label: Targeted Brain Region / Pillar
+      description: Which region or cognitive pillar does this affect?
+      placeholder: e.g., Prefrontal Cortex (Executive Function), Amygdala (Emotional Resilience)
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Calibration Proposal
+      description: Detail the requested formula, question wording, or regional weight adjustment.
+    validations:
+      required: true
+  - type: textarea
+    id: citations
+    attributes:
+      label: Scientific Citations & Literature
+      description: Please cite relevant peer-reviewed literature, neuroscience publications, or clinical frameworks.
+      placeholder: e.g., DOI, PubMed link, or study reference
+    validations:
+      required: true

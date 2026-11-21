@@ -6,6 +6,14 @@
 
 > **Live Demo:** [https://brainiac-care.vercel.app](https://brainiac-care.vercel.app)
 
+| Specification | Target / Reference |
+| :--- | :--- |
+| **Core Architecture** | React 19.2, Vite 8.3, Node.js 20+ |
+| **Graphic Pipeline** | Three.js, React Three Fiber, WebGL2 |
+| **CI / Security** | Automated GitHub Actions (`ci.yml`, `codeql.yml`) |
+| **Deployment** | Vercel Production Environment |
+| **License** | [MIT](LICENSE) |
+
 Brainiac is a high-performance cognitive intelligence platform and spatial anatomical mapping system. It unifies multi-dimensional psychometric assessments, real-time 3D WebGL anatomical rendering, generative Large Language Model (LLM) inference, and an ambient auditory feedback engine to analyze human cognitive architectures and synthesize personalized neuro-optimization protocols.
 
 ---

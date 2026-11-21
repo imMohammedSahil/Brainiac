@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Brainiac Security Advisory
+    url: https://github.com/imMohammedSahil/Brainiac/security/policy
+    about: Please report security vulnerabilities privately according to our security policy.
+  - name: Live Demo Application
+    url: https://brainiac-care.vercel.app
+    about: Explore Brainiac running live in production.
