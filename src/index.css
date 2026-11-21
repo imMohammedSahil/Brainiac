@@ -37,6 +37,28 @@
 html {
   background: #000000;
   scroll-behavior: initial;
+  scrollbar-width: thin;
+  scrollbar-color: #27272a #000000;
+}
+
+/* Custom Sleek Dark Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 9999px;
+  border: 1px solid #000000;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
 }
 
 html.lenis, html.lenis body {

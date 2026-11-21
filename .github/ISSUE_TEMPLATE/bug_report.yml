@@ -1,0 +1,76 @@
+name: "Bug Report"
+description: File an actionable bug report with reproduction steps and hardware/WebGL details.
+title: "[Bug]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting an issue in **Brainiac**! Please provide as much detail as possible so we can diagnose and resolve it quickly.
+  - type: input
+    id: summary
+    attributes:
+      label: Bug Summary
+      description: A concise one-sentence description of what happened.
+      placeholder: e.g., WebGL canvas crashes when switching between 3D brain regions on mobile Chrome
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: Numbered steps to reproduce the issue.
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. Scroll down to '....'
+        4. See error
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What you expected to happen.
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: What actually happened (include error messages or console logs).
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Affected Area
+      options:
+        - "3D WebGL / Three.js Brain Canvas"
+        - "Psychometric Assessment & Scoring"
+        - "AI Ritual Protocol / LLM Gateway"
+        - "Ambient Audio / Soundscape Engine"
+        - "UI / Layout / Responsive Design"
+        - "Backend Service / Deployment"
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Device & Environment
+      description: OS, browser version, and GPU info (vital for WebGL bugs).
+      placeholder: |
+        - OS: Windows 11 / macOS Sonoma / Android 14 / iOS 17
+        - Browser: Chrome 124 / Safari 17 / Firefox 125
+        - GPU: NVIDIA RTX 4070 / Apple M2 / Intel Iris Xe
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I have verified this bug against the latest `main` branch or live deployment.
+          required: true
+        - label: I checked existing issues to confirm this is not a duplicate.
+          required: true
