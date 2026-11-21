@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSoundSanctuary } from "../context/SoundSanctuaryContext";
 import SoundPill from "../components/SoundPill";
+import { saveSecureItem, getSecureItem } from "../utils/storage";
 
 export default function Improve() {
   const location = useLocation();
@@ -13,9 +14,8 @@ export default function Improve() {
   // Check if a care plan was previously created for this region
   const [existingPlan, setExistingPlan] = useState(() => {
     try {
-      const raw = localStorage.getItem("brainiac_saved_care_plans");
-      if (raw) {
-        const parsed = JSON.parse(raw);
+      const parsed = getSecureItem("brainiac_saved_care_plans");
+      if (parsed) {
         return parsed[regionKey] || null;
       }
     } catch (e) {}
@@ -167,10 +167,9 @@ Evening Wind-Down & Deep Rest:
       aiText = aiText.replace(/\n\s*\n\s*-/g, "\n- ");
       aiText = aiText.replace(/\n{3,}/g, "\n\n");
 
-      // Save plan permanently in localStorage so user can access it next time
+      // Save plan securely without clear-text exposure
       try {
-        const raw = localStorage.getItem("brainiac_saved_care_plans");
-        const plans = raw ? JSON.parse(raw) : {};
+        const plans = getSecureItem("brainiac_saved_care_plans") || {};
         plans[regionKey] = {
           result: aiText.trim(),
           region,
@@ -178,9 +177,9 @@ Evening Wind-Down & Deep Rest:
           userInput,
           savedAt: Date.now()
         };
-        localStorage.setItem("brainiac_saved_care_plans", JSON.stringify(plans));
+        saveSecureItem("brainiac_saved_care_plans", plans);
       } catch (e) {
-        console.warn("Could not save to localStorage:", e);
+        console.warn("Could not save to secure storage:", e);
       }
 
       setLoading(false);
@@ -198,8 +197,7 @@ Evening Wind-Down & Deep Rest:
       const fallback = generateClientCarePlan(region.name, selectedFocus, userInput, region.improve);
       
       try {
-        const raw = localStorage.getItem("brainiac_saved_care_plans");
-        const plans = raw ? JSON.parse(raw) : {};
+        const plans = getSecureItem("brainiac_saved_care_plans") || {};
         plans[regionKey] = {
           result: fallback.trim(),
           region,
@@ -207,7 +205,7 @@ Evening Wind-Down & Deep Rest:
           userInput,
           savedAt: Date.now()
         };
-        localStorage.setItem("brainiac_saved_care_plans", JSON.stringify(plans));
+        saveSecureItem("brainiac_saved_care_plans", plans);
       } catch (e) {}
 
       setLoading(false);

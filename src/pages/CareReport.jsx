@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSoundSanctuary } from "../context/SoundSanctuaryContext";
 import SoundPill from "../components/SoundPill";
+import { saveSecureItem, getSecureItem } from "../utils/storage";
 
 export default function CareReport() {
   const location = useLocation();
@@ -33,8 +34,7 @@ export default function CareReport() {
 
   if (!activeData.result) {
     try {
-      const rawPlans = localStorage.getItem("brainiac_saved_care_plans");
-      const savedPlans = rawPlans ? JSON.parse(rawPlans) : {};
+      const savedPlans = getSecureItem("brainiac_saved_care_plans") || {};
       const foundPlan = savedPlans[regKey] || Object.values(savedPlans)[0];
 
       if (foundPlan) {
@@ -103,9 +103,8 @@ Create a cozy, dimly lit sanctuary 45 minutes before bedtime, closing demanding 
   // Interactive Checklist State - persisted per region
   const [completedHabits, setCompletedHabits] = useState(() => {
     try {
-      const raw = localStorage.getItem("brainiac_saved_care_plans");
-      if (raw) {
-        const plans = JSON.parse(raw);
+      const plans = getSecureItem("brainiac_saved_care_plans");
+      if (plans) {
         return plans[activeRegionKey]?.completedHabits || {};
       }
     } catch (e) {}
@@ -119,20 +118,18 @@ Create a cozy, dimly lit sanctuary 45 minutes before bedtime, closing demanding 
   const [breathPaused, setBreathPaused] = useState(false);
   const [breathCycles, setBreathCycles] = useState(() => {
     try {
-      const raw = localStorage.getItem("brainiac_saved_care_plans");
-      if (raw) {
-        const plans = JSON.parse(raw);
+      const plans = getSecureItem("brainiac_saved_care_plans");
+      if (plans) {
         return plans[activeRegionKey]?.breathCycles || 0;
       }
     } catch (e) {}
     return 0;
   });
 
-  // Sync state changes to persistent localStorage
+  // Sync state changes to persistent secure storage
   useEffect(() => {
     try {
-      const raw = localStorage.getItem("brainiac_saved_care_plans");
-      const plans = raw ? JSON.parse(raw) : {};
+      const plans = getSecureItem("brainiac_saved_care_plans") || {};
       plans[activeRegionKey] = {
         ...(plans[activeRegionKey] || {}),
         result,
@@ -143,9 +140,9 @@ Create a cozy, dimly lit sanctuary 45 minutes before bedtime, closing demanding 
         completedHabits,
         savedAt: plans[activeRegionKey]?.savedAt || Date.now()
       };
-      localStorage.setItem("brainiac_saved_care_plans", JSON.stringify(plans));
+      saveSecureItem("brainiac_saved_care_plans", plans);
     } catch (e) {
-      console.warn("Could not sync care plan data to localStorage:", e);
+      console.warn("Could not sync care plan data to secure storage:", e);
     }
   }, [breathCycles, completedHabits, activeRegionKey, result, region, focus, location.state]);
 
